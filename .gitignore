@@ -3,6 +3,7 @@ CMakeLists.txt.user
 build*
 include/protobuf/*
 external/google-protobuf/*
+.gitmodules
 .idea
 cmake-build-debug
 cmake-build-release
