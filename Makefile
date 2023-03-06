@@ -34,7 +34,7 @@ format:
 		find include -not -path "*/protobuf*"| grep ".*/.*\.\(c\|cpp\|h\)$$"| xargs clang-format -i
 		
 unit:
-		cd build && cmake .. && make && ctest 
+		cd build && cmake .. && make -j8 && ctest
 
 build:
-		cd build && cmake .. && make 
+		cd build && cmake .. && make -j8
