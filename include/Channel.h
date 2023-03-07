@@ -48,8 +48,8 @@ class Channel final {
   Channel(PpgMetaData& ppgMetaData, AbsoluteBlock absoluteBlock, std::vector<size_t> blockIdxs);
   Channel(PpgMetaData& ppgMetaData, std::vector<DifferentialBlock>& differentialBlocks);
   Channel(AccMetaData& accMetaData, std::vector<DifferentialBlock>& differentialBlocks);
-  Channel(Json::Value& channel, ProtobufSensorType sensorType, std::vector<size_t> blockIdxs);
-  Channel(Json::Value& channel, ProtobufSensorType sensorType);
+  Channel(Json::Value& channel, Json::Value sensorType, std::vector<size_t> blockIdxs);
+  Channel(Json::Value& channel, Json::Value sensorType);
   Channel(const ProtobufChannel& protobufChannel);
   Channel();
 
@@ -64,7 +64,7 @@ class Channel final {
 
  private:
   std::vector<DifferentialBlock> calculateDifferentialBlocks(AbsoluteBlock absoluteBlock, std::vector<size_t> blockIdxs);
-  DifferentialBlock createDifferentialBlock(size_t fromIdx, size_t toIdx);
+  DifferentialBlock createDifferentialBlock(size_t fromIdx, size_t toIdx, std::vector<int32_t>& absoluteValues);
   AbsoluteBlock calculateAbsoluteBlock(std::vector<DifferentialBlock> differentialBlocks);
 
   void deserialize(const ProtobufChannel& protobufChannel);
