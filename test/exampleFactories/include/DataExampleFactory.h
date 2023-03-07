@@ -37,7 +37,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "RawExampleFactory.h"
 
 class DataExampleFactory {
- public:
+public:
   static Data normalData();
   static Data comparableData();
   static Data absoluteJsonData();

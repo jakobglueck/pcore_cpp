@@ -33,15 +33,16 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "Version.h"
 
-Version::Version(uint32_t major, uint32_t minor, uint32_t patch) : major(major), minor(minor), patch(patch) {}
+Version::Version(uint32_t major, uint32_t minor, uint32_t patch)
+    : major(major), minor(minor), patch(patch) {}
 
-Version::Version(Json::Value& version) {
-  this->major = version["major"].asUInt();
-  this->minor = version["minor"].asUInt();
-  this->patch = version["patch"].asUInt();
+Version::Version(Json::Value &pcoreVersion) {
+  this->major = pcoreVersion["major"].asUInt();
+  this->minor = pcoreVersion["minor"].asUInt();
+  this->patch = pcoreVersion["patch"].asUInt();
 }
 
-Version::Version(const ProtobufVersion& protobufVersion) {
+Version::Version(const ProtobufVersion &protobufVersion) {
   this->deserialize(protobufVersion);
 }
 
@@ -51,25 +52,21 @@ Version::Version() {
   this->patch = 0;
 }
 
-uint32_t Version::getMajor() {
-  return this->major;
+uint32_t Version::getMajor() { return this->major; }
+
+uint32_t Version::getMinor() { return this->minor; }
+
+uint32_t Version::getPatch() { return this->patch; }
+
+bool Version::isEqual(Version &version) {
+  return this->major == version.major && this->minor == version.minor &&
+         this->patch == version.patch;
 }
 
-uint32_t Version::getMinor() {
-  return this->minor;
-}
-
-uint32_t Version::getPatch() {
-  return this->patch;
-}
-
-bool Version::isEqual(Version& version) {
-  return this->major == version.major && this->minor == version.minor && this->patch == version.patch;
-}
-
-void Version::serialize(ProtobufVersion* protobufVersion) {
+void Version::serialize(ProtobufVersion *protobufVersion) {
   if (protobufVersion == nullptr) {
-    throw std::invalid_argument("Error in serialize: protobufVersion is a null pointer");
+    throw std::invalid_argument(
+        "Error in serialize: protobufVersion is a null pointer");
   }
   protobufVersion->set_major(this->major);
   protobufVersion->set_minor(this->minor);
@@ -78,16 +75,19 @@ void Version::serialize(ProtobufVersion* protobufVersion) {
 
 Json::Value Version::toJson() {
   Json::Value version;
-  Json::Value major(this->major);
-  Json::Value minor(this->minor);
-  Json::Value patch(this->patch);
+  Json::Value major(Json::uintValue);
+  Json::Value minor(Json::uintValue);
+  Json::Value patch(Json::uintValue);
+  major = this->major;
+  minor = this->minor;
+  patch = this->patch;
   version["major"] = major;
   version["minor"] = minor;
   version["patch"] = patch;
   return version;
 }
 
-void Version::deserialize(const ProtobufVersion& protobufVersion) {
+void Version::deserialize(const ProtobufVersion &protobufVersion) {
   this->major = protobufVersion.major();
   this->minor = protobufVersion.minor();
   this->patch = protobufVersion.patch();

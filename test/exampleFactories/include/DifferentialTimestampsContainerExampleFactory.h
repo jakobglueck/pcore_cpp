@@ -35,7 +35,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "DifferentialTimestampsContainer.h"
 
 class DifferentialTimestampsContainerExampleFactory {
- public:
+public:
   static uint64_t normalFirstTimestamp_ms();
   static uint64_t zeroFirstTimestamp_ms();
   static uint64_t expectedFirstTimestamps();
@@ -49,16 +49,23 @@ class DifferentialTimestampsContainerExampleFactory {
   static std::vector<uint32_t> expectedBlockInterval();
 
   static std::vector<uint32_t> normalTimestampsIntervals_ms();
-  static std::vector<uint32_t> normalTimestampsIntervals_msWithOneUnixInLastBlock();
-  static std::vector<uint32_t> normalTimestampsIntervals_msWithEqualDifferences();
+  static std::vector<uint32_t>
+  normalTimestampsIntervals_msWithOneUnixInLastBlock();
+  static std::vector<uint32_t>
+  normalTimestampsIntervals_msWithEqualDifferences();
   static std::vector<uint32_t> zeroTimestampsIntervals_ms();
   static std::vector<uint32_t> emptyTimestampsIntervals_ms();
   static std::vector<uint32_t> expectedTimestampInterval();
 
-  static DifferentialTimestampsContainer differentialTimestampsWithNormalTimestamps();
-  static DifferentialTimestampsContainer differentialTimestampsWith0Timestamps();
-  static DifferentialTimestampsContainer differentialTimestampsWithEmptyTimestamps();
+  static DifferentialTimestampsContainer
+  differentialTimestampsWithNormalTimestamps();
+  static DifferentialTimestampsContainer
+  differentialTimestampsWith0Timestamps();
+  static DifferentialTimestampsContainer
+  differentialTimestampsWithEmptyTimestamps();
   static DifferentialTimestampsContainer normalDifferentialTimestamps();
-  static DifferentialTimestampsContainer differentiaJsonDataTimestampsContainerPpg();
-  static DifferentialTimestampsContainer differentiaJsonDataTimestampsContainerAcc();
+  static DifferentialTimestampsContainer
+  differentiaJsonDataTimestampsContainerPpg();
+  static DifferentialTimestampsContainer
+  differentiaJsonDataTimestampsContainerAcc();
 };

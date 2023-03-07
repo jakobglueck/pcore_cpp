@@ -32,35 +32,41 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #pragma once
-#include <vector>
 #include "DifferentialBlock.h"
+#include <vector>
 
 #include "protobuf/pcore_raw.pb.h"
 
-using ProtobufDifferentialTimestampContainer = com::preventicus::pcore::Raw_Sensor_DifferentialTimestampsContainer;
+using ProtobufDifferentialTimestampContainer =
+    com::preventicus::pcore::Raw_Sensor_DifferentialTimestampsContainer;
 
 class DifferentialTimestampsContainer final {
- public:
-  DifferentialTimestampsContainer(uint64_t firstTimestamp_ms,
-                                  std::vector<uint32_t>& blockIntervals_ms,
-                                  std::vector<uint32_t>& timestampsIntervals_ms);
-  DifferentialTimestampsContainer(const ProtobufDifferentialTimestampContainer& protobufDifferentialTimestampsContainer);
-  DifferentialTimestampsContainer(Json::Value& differentialTimestampsContainer);
+public:
+  DifferentialTimestampsContainer(
+      uint64_t firstTimestamp_ms, std::vector<uint32_t> &blockIntervals_ms,
+      std::vector<uint32_t> &timestampsIntervals_ms);
+  DifferentialTimestampsContainer(const ProtobufDifferentialTimestampContainer
+                                      &protobufDifferentialTimestampsContainer);
+  DifferentialTimestampsContainer(Json::Value &differentialTimestampsContainer);
   DifferentialTimestampsContainer();
 
   uint64_t getFirstTimestamp();
   std::vector<uint32_t> getBlockIntervals();
   std::vector<uint32_t> getTimestampsIntervals();
 
-  bool isEqual(DifferentialTimestampsContainer& timestamps);
+  bool isEqual(DifferentialTimestampsContainer &timestamps);
   Json::Value toJson();
   uint32_t calculateFirstTimestampInBlock(uint32_t blockIdx);
-  uint32_t calculateLastTimestampInBlock(uint32_t blockIdx, uint32_t firstTimestampInBlock, DifferentialBlock differentialBlock);
+  uint32_t calculateLastTimestampInBlock(uint32_t blockIdx,
+                                         uint32_t firstTimestampInBlock,
+                                         DifferentialBlock differentialBlock);
 
-  void serialize(ProtobufDifferentialTimestampContainer* protobufDifferentialTimestampsContainer);
+  void serialize(ProtobufDifferentialTimestampContainer
+                     *protobufDifferentialTimestampsContainer);
 
- private:
-  void deserialize(const ProtobufDifferentialTimestampContainer& protobufDifferentialTimestampsContainer);
+private:
+  void deserialize(const ProtobufDifferentialTimestampContainer
+                       &protobufDifferentialTimestampsContainer);
 
   uint64_t firstTimestamp_ms;
   std::vector<uint32_t> blockIntervals_ms;

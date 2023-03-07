@@ -41,11 +41,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 using ProtobufSensor = com::preventicus::pcore::Raw_Sensor;
 
 class Sensor final {
- public:
-  Sensor(std::vector<Channel> channels, DifferentialTimestampsContainer differentialTimestampsContainer, ProtobufSensorType protobufSensorType);
-  Sensor(std::vector<Channel> channels, AbsoluteTimestampsContainer absoluteTimestampsContainer, ProtobufSensorType protobufSensorType);
-  Sensor(Json::Value& sensor, DataForm dataForm);
-  Sensor(const ProtobufSensor& protobufSensor);
+public:
+  Sensor(std::vector<Channel> channels,
+         DifferentialTimestampsContainer differentialTimestampsContainer,
+         ProtobufSensorType protobufSensorType);
+  Sensor(std::vector<Channel> channels,
+         AbsoluteTimestampsContainer absoluteTimestampsContainer,
+         ProtobufSensorType protobufSensorType);
+  Sensor(Json::Value &sensor, DataForm dataForm);
+  Sensor(const ProtobufSensor &protobufSensor);
   Sensor();
 
   ProtobufSensorType getSensorType();
@@ -56,18 +60,19 @@ class Sensor final {
   uint64_t getLastTimestamp();
   uint64_t getDuration();
 
-  bool isEqual(Sensor& Sensor);
+  bool isEqual(Sensor &Sensor);
   Json::Value toJson(DataForm dataForm);
-  void serialize(ProtobufSensor* protobufSensor);
+  void serialize(ProtobufSensor *protobufSensor);
 
- private:
-  AbsoluteTimestampsContainer calculateAbsoluteTimestamps(DifferentialTimestampsContainer differentialTimestamps);
-  DifferentialTimestampsContainer calculateDifferentialTimestamps(AbsoluteTimestampsContainer absoluteTimestamps, std::vector<size_t> blocksIdxs);
+private:
+  AbsoluteTimestampsContainer calculateAbsoluteTimestamps(
+      DifferentialTimestampsContainer differentialTimestamps);
+  DifferentialTimestampsContainer calculateDifferentialTimestamps(
+      AbsoluteTimestampsContainer absoluteTimestamps,
+      std::vector<size_t> blocksIdxs);
   std::vector<size_t> findBlocksIdxs();
 
-  std::string toString(ProtobufSensorType protobufSensorType);
-  ProtobufSensorType toEnum(Json::Value protobufSensorType);
-  void deserialize(const ProtobufSensor& protobufSensor);
+  void deserialize(const ProtobufSensor &protobufSensor);
 
   ProtobufSensorType protobufSensorType;
   std::vector<Channel> channels;

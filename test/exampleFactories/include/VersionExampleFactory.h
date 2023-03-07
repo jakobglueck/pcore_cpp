@@ -35,7 +35,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "Version.h"
 
 class VersionExampleFactory {
- public:
+public:
   static uint32_t majorOne();
   static uint32_t minorOne();
   static uint32_t patchOne();

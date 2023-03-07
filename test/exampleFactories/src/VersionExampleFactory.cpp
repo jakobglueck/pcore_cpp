@@ -33,58 +33,50 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "VersionExampleFactory.h"
 
-uint32_t VersionExampleFactory::majorOne() {
-  return 1;
-}
+uint32_t VersionExampleFactory::majorOne() { return 1; }
 
-uint32_t VersionExampleFactory::minorOne() {
-  return 1;
-}
+uint32_t VersionExampleFactory::minorOne() { return 1; }
 
-uint32_t VersionExampleFactory::patchOne() {
-  return 1;
-}
+uint32_t VersionExampleFactory::patchOne() { return 1; }
 
-uint32_t VersionExampleFactory::majorTwo() {
-  return 2;
-}
+uint32_t VersionExampleFactory::majorTwo() { return 2; }
 
-uint32_t VersionExampleFactory::minorTwo() {
-  return 2;
-}
+uint32_t VersionExampleFactory::minorTwo() { return 2; }
 
-uint32_t VersionExampleFactory::patchTwo() {
-  return 2;
-}
+uint32_t VersionExampleFactory::patchTwo() { return 2; }
 
-uint32_t VersionExampleFactory::majorZero() {
-  return 0;
-}
+uint32_t VersionExampleFactory::majorZero() { return 0; }
 
-uint32_t VersionExampleFactory::minorZero() {
-  return 0;
-}
+uint32_t VersionExampleFactory::minorZero() { return 0; }
 
-uint32_t VersionExampleFactory::patchZero() {
-  return 0;
-}
+uint32_t VersionExampleFactory::patchZero() { return 0; }
 
 Version VersionExampleFactory::normalVersion() {
-  return Version(VersionExampleFactory::majorOne(), VersionExampleFactory::minorOne(), VersionExampleFactory::patchOne());
+  return Version(VersionExampleFactory::majorOne(),
+                 VersionExampleFactory::minorOne(),
+                 VersionExampleFactory::patchOne());
 }
 
 Version VersionExampleFactory::startVersion() {
-  return Version(VersionExampleFactory::majorZero(), VersionExampleFactory::minorZero(), VersionExampleFactory::patchZero());
+  return Version(VersionExampleFactory::majorZero(),
+                 VersionExampleFactory::minorZero(),
+                 VersionExampleFactory::patchZero());
 }
 
 Version VersionExampleFactory::highVersion() {
-  return Version(VersionExampleFactory::majorTwo(), VersionExampleFactory::minorTwo(), VersionExampleFactory::patchTwo());
+  return Version(VersionExampleFactory::majorTwo(),
+                 VersionExampleFactory::minorTwo(),
+                 VersionExampleFactory::patchTwo());
 }
 
 Version VersionExampleFactory::randomVersion() {
-  return Version(VersionExampleFactory::majorTwo(), VersionExampleFactory::minorOne(), VersionExampleFactory::patchZero());
+  return Version(VersionExampleFactory::majorTwo(),
+                 VersionExampleFactory::minorOne(),
+                 VersionExampleFactory::patchZero());
 }
 
 Version VersionExampleFactory::absoluteJsonDataVersion() {
-  return Version(VersionExampleFactory::majorOne(), VersionExampleFactory::minorOne(), VersionExampleFactory::patchZero());
+  return Version(VersionExampleFactory::majorOne(),
+                 VersionExampleFactory::minorOne(),
+                 VersionExampleFactory::patchZero());
 }

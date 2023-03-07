@@ -36,7 +36,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "VersionExampleFactory.h"
 
 class HeaderExampleFactory {
- public:
+public:
   static int32_t positiveTimeZoneOffset_min();
   static int32_t negativeTimeZoneOffset_min();
   static int32_t invalidPositiveTimeZoneOffset_min();

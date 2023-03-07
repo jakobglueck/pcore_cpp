@@ -9,6 +9,6 @@ struct Pcore_Version {
   static constexpr int patch = PCORE_VERSION_PATCH;
 };
 
-const Pcore_Version& coreLibraryVersion();
+const Pcore_Version &coreLibraryVersion();
 
-#endif  // PCOREEXTERN_H
+#endif // PCOREEXTERN_H

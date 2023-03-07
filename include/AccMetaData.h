@@ -32,34 +32,34 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #pragma once
-#include "json/json.h"
 #include "protobuf/pcore_coordinate.pb.h"
 #include "protobuf/pcore_norm.pb.h"
 #include "protobuf/pcore_raw.pb.h"
+#include "json/json.h"
 
-using ProtobufAccMetaData = com::preventicus::pcore::Raw_Sensor_Channel_AccMetadata;
+using ProtobufAccMetaData =
+    com::preventicus::pcore::Raw_Sensor_Channel_AccMetadata;
 using ProtobufCoordinate = com::preventicus::pcore::Coordinate;
 using ProtobufNorm = com::preventicus::pcore::Norm;
 
 class AccMetaData final {
- public:
+public:
   AccMetaData(ProtobufNorm norm);
   AccMetaData(ProtobufCoordinate coordinate);
-  AccMetaData(const ProtobufAccMetaData& protobufAccMetaData);
-  AccMetaData(Json::Value& accMetaData);
+  AccMetaData(const ProtobufAccMetaData &protobufAccMetaData);
+  AccMetaData(Json::Value &accMetadata);
   AccMetaData();
 
   ProtobufCoordinate getCoordinate();
   ProtobufNorm getNorm();
   bool isSet();
-  bool isEqual(AccMetaData& AccMetaData);
+  bool isEqual(AccMetaData &AccMetaData);
   Json::Value toJson();
-  void serialize(ProtobufAccMetaData* protobufAccMetaData);
+  void serialize(ProtobufAccMetaData *protobufAccMetaData);
 
- private:
-  void deserialize(const ProtobufAccMetaData& protobufAccMetaData);
-  ProtobufCoordinate toEnum(Json::Value string);
-  std::string toString(ProtobufCoordinate coordinate);
+private:
+  void deserialize(const ProtobufAccMetaData &protobufAccMetaData);
+
   ProtobufCoordinate coordinate;
   ProtobufNorm norm;
 };

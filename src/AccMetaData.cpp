@@ -42,22 +42,32 @@ AccMetaData::AccMetaData(ProtobufNorm norm) {
   this->coordinate = ProtobufCoordinate::COORDINATE_NONE;
 }
 
-AccMetaData::AccMetaData(Json::Value& accMetaData) {
-  if (accMetaData["norm"].asString() != "" && accMetaData["coordinate"].asString() != "") {
-    throw std::invalid_argument("just one enum type of AccMetaData can be initialized");
+AccMetaData::AccMetaData(Json::Value &accMetaData) {
+  if (accMetaData["norm"].asString() != "" &&
+      accMetaData["coordinate"].asString() != "") {
+    throw std::invalid_argument(
+        "just one enum type of AccMetaData can be initialized");
   }
   if (accMetaData["norm"].asString() == "NORM_EUCLIDEAN_DIFFERENCES_NORM") {
     this->norm = ProtobufNorm::NORM_EUCLIDEAN_DIFFERENCES_NORM;
+    this->coordinate = ProtobufCoordinate::COORDINATE_NONE;
   }
-  this->coordinate = ProtobufCoordinate::COORDINATE_NONE;
   if (accMetaData["coordinate"].asString() != "") {
     Json::Value coordinate = accMetaData["coordinate"];
-    this->coordinate = this->toEnum(accMetaData["coordinate"]);
+    if (coordinate.asString() == "COORDINATE_X") {
+      this->coordinate = ProtobufCoordinate::COORDINATE_X;
+    }
+    if (coordinate.asString() == "COORDINATE_Y") {
+      this->coordinate = ProtobufCoordinate::COORDINATE_Y;
+    }
+    if (coordinate.asString() == "COORDINATE_Z") {
+      this->coordinate = ProtobufCoordinate::COORDINATE_Z;
+    }
     this->norm = ProtobufNorm::NORM_NONE;
   }
 }
 
-AccMetaData::AccMetaData(const ProtobufAccMetaData& protobufAccMetaData) {
+AccMetaData::AccMetaData(const ProtobufAccMetaData &protobufAccMetaData) {
   this->deserialize(protobufAccMetaData);
 }
 
@@ -66,27 +76,26 @@ AccMetaData::AccMetaData() {
   this->norm = ProtobufNorm::NORM_NONE;
 };
 
-ProtobufCoordinate AccMetaData::getCoordinate() {
-  return this->coordinate;
-}
+ProtobufCoordinate AccMetaData::getCoordinate() { return this->coordinate; }
 
-ProtobufNorm AccMetaData::getNorm() {
-  return this->norm;
-}
+ProtobufNorm AccMetaData::getNorm() { return this->norm; }
 
 bool AccMetaData::isSet() {
-  return !(this->coordinate == ProtobufCoordinate::COORDINATE_NONE && this->norm == ProtobufNorm::NORM_NONE);
+  return !(this->coordinate == ProtobufCoordinate::COORDINATE_NONE &&
+           this->norm == ProtobufNorm::NORM_NONE);
 }
 
-bool AccMetaData::isEqual(AccMetaData& AccMetaData) {
-  return this->coordinate == AccMetaData.coordinate && this->norm == AccMetaData.norm;
+bool AccMetaData::isEqual(AccMetaData &AccMetaData) {
+  return this->coordinate == AccMetaData.coordinate &&
+         this->norm == AccMetaData.norm;
 }
 
-void AccMetaData::serialize(ProtobufAccMetaData* protobufAccMetaData) {
+void AccMetaData::serialize(ProtobufAccMetaData *protobufAccMetaData) {
   if (protobufAccMetaData == nullptr) {
     throw std::invalid_argument("protobufAccMetaData is a null pointer");
   }
-  if (coordinate != ProtobufCoordinate::COORDINATE_NONE && norm != ProtobufNorm::NORM_NONE) {
+  if (coordinate != ProtobufCoordinate::COORDINATE_NONE &&
+      norm != ProtobufNorm::NORM_NONE) {
     throw std::invalid_argument("one enum type has to be initialized");
   }
   if (this->coordinate != ProtobufCoordinate::COORDINATE_NONE) {
@@ -98,48 +107,27 @@ void AccMetaData::serialize(ProtobufAccMetaData* protobufAccMetaData) {
 }
 
 Json::Value AccMetaData::toJson() {
-  Json::Value accMetaData;
+  Json::Value accMetadata;
   if (this->norm != ProtobufNorm::NORM_NONE) {
-    accMetaData["norm"] = "NORM_EUCLIDEAN_DIFFERENCES_NORM";
+    if (this->norm == ProtobufNorm::NORM_EUCLIDEAN_DIFFERENCES_NORM) {
+      accMetadata["norm"] = "NORM_EUCLIDEAN_DIFFERENCES_NORM";
+    }
   }
   if (this->coordinate != ProtobufCoordinate::COORDINATE_NONE) {
-    accMetaData["coordinate"] = this->toString(this->coordinate);
+    if (this->coordinate == ProtobufCoordinate::COORDINATE_X) {
+      accMetadata["coordinate"] = "COORDINATE_X";
+    }
+    if (this->coordinate == ProtobufCoordinate::COORDINATE_Y) {
+      accMetadata["coordinate"] = "COORDINATE_Y";
+    }
+    if (this->coordinate == ProtobufCoordinate::COORDINATE_Z) {
+      accMetadata["coordinate"] = "COORDINATE_Z";
+    }
   }
-  return accMetaData;
+  return accMetadata;
 }
 
-void AccMetaData::deserialize(const ProtobufAccMetaData& protobufAccMetaData) {
+void AccMetaData::deserialize(const ProtobufAccMetaData &protobufAccMetaData) {
   this->norm = protobufAccMetaData.norm();
   this->coordinate = protobufAccMetaData.coordinate();
-}
-
-std::string AccMetaData::toString(ProtobufCoordinate coordinate) {
-  switch (coordinate) {
-    case ProtobufCoordinate::COORDINATE_X: {
-      return "COORDINATE_X";
-    }
-    case ProtobufCoordinate::COORDINATE_Y: {
-      return "COORDINATE_Y";
-    }
-    case ProtobufCoordinate::COORDINATE_Z: {
-      return "COORDINATE_Z";
-    }
-    default: {
-      break;
-    }
-  }
-}
-
-ProtobufCoordinate AccMetaData::toEnum(Json::Value jsonCoordinate) {
-  ProtobufCoordinate coordinate;
-  if (jsonCoordinate.asString() == "COORDINATE_X") {
-    coordinate = ProtobufCoordinate::COORDINATE_X;
-  }
-  if (jsonCoordinate.asString() == "COORDINATE_Y") {
-    coordinate = ProtobufCoordinate::COORDINATE_Y;
-  }
-  if (jsonCoordinate.asString() == "COORDINATE_Z") {
-    coordinate = ProtobufCoordinate::COORDINATE_Z;
-  }
-  return coordinate;
 }

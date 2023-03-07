@@ -36,15 +36,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <vector>
 
 class AbsoluteTimestampsContainer final {
- public:
-  AbsoluteTimestampsContainer(std::vector<uint64_t>& unixTimestamps_ms);
-  AbsoluteTimestampsContainer(Json::Value& absoluteTimestampsContainer);
+public:
+  AbsoluteTimestampsContainer(std::vector<uint64_t> &unixTimestamps_ms);
+  AbsoluteTimestampsContainer(Json::Value &absoluteTimestamps);
   AbsoluteTimestampsContainer();
 
   std::vector<uint64_t> getUnixTimestamps();
-  bool isEqual(AbsoluteTimestampsContainer& timestamps);
+  bool isEqual(AbsoluteTimestampsContainer &timestamps);
   Json::Value toJson();
 
- private:
+private:
   std::vector<uint64_t> unixTimestamps_ms;
 };

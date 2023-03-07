@@ -35,7 +35,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "DifferentialBlock.h"
 
 class DifferentialBlockExampleFactory {
- public:
+public:
   static std::vector<int32_t> differentialValuesNormal();
   static std::vector<int32_t> differentialValuesNormalNeagtive();
   static std::vector<int32_t> differentialValuesOneNegative();

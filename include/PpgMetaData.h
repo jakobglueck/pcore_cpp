@@ -32,32 +32,34 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #pragma once
-#include "json/json.h"
 #include "protobuf/pcore_color.pb.h"
 #include "protobuf/pcore_raw.pb.h"
+#include "json/json.h"
 
 using ProtobufColor = com::preventicus::pcore::Color;
-using ProtobufPpgMetaData = com::preventicus::pcore::Raw_Sensor_Channel_PpgMetadata;
+using ProtobufPpgMetaData =
+    com::preventicus::pcore::Raw_Sensor_Channel_PpgMetadata;
 
 class PpgMetaData final {
- public:
+public:
   PpgMetaData(ProtobufColor color);
   PpgMetaData(uint32_t wavelength_nm);
-  PpgMetaData(const ProtobufPpgMetaData& protobufPpgMetaData);
-  PpgMetaData(Json::Value& ppgMetaData);
+  PpgMetaData(const ProtobufPpgMetaData &protobufPpgMetaData);
+  PpgMetaData(Json::Value &ppgMetaData);
   PpgMetaData();
 
   ProtobufColor getColor();
   uint32_t getWavelength();
-  bool isSet();
-  bool isEqual(PpgMetaData& ppgMetaData);
-  Json::Value toJson();
-  void serialize(ProtobufPpgMetaData* protobufPpgMetaData);
 
- private:
-  void deserialize(const ProtobufPpgMetaData& protobufPpgMetaData);
-  std::string toString(ProtobufColor color);
-  ProtobufColor toEnum(Json::Value string);
+  bool isSet();
+  bool isEqual(PpgMetaData &ppgMetaData);
+
+  Json::Value toJson();
+  void serialize(ProtobufPpgMetaData *protobufPpgMetaData);
+
+private:
+  void deserialize(const ProtobufPpgMetaData &protobufPpgMetaData);
+
   ProtobufColor color;
   uint32_t wavelength_nm;
 };

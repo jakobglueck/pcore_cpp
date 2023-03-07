@@ -36,7 +36,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "SensorExampleFactory.h"
 
 class RawExampleFactory {
- public:
+public:
   static Raw normalRaw();
   static Raw comparableRaw();
   static Raw absoluteJsonDataRaw();

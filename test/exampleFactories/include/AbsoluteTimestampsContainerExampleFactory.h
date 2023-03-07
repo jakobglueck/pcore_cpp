@@ -35,7 +35,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "AbsoluteTimestampsContainer.h"
 
 class AbsoluteTimestampsContainerExampleFactory {
- public:
+public:
   static std::vector<uint64_t> unixTimestampsNormal_ms();
   static std::vector<uint64_t> unixTimestampsTwoElements_ms();
   static std::vector<uint64_t> unixTimestampsOneElement_ms();
@@ -50,11 +50,13 @@ class AbsoluteTimestampsContainerExampleFactory {
   static AbsoluteTimestampsContainer absoluteJsonDataTimestampsContainerPgg();
   static AbsoluteTimestampsContainer absoluteJsonDataTimestampsContainerAcc();
   static AbsoluteTimestampsContainer absoluteTimestampsNormal();
-  static AbsoluteTimestampsContainer absoluteUNixTimestampBlockWithOneUnixInLastBlock();
+  static AbsoluteTimestampsContainer
+  absoluteUNixTimestampBlockWithOneUnixInLastBlock();
   static AbsoluteTimestampsContainer absoluteTimestampsTwoElement();
   static AbsoluteTimestampsContainer absoluteTimestampsOneElement();
   static AbsoluteTimestampsContainer absoluteTimestamps0();
   static AbsoluteTimestampsContainer absoluteTimestampsEmpty();
   static AbsoluteTimestampsContainer normalAbsoluteTimestamps();
-  static AbsoluteTimestampsContainer absoluteTimestampsBlockWithEqualTimestampIntervals();
+  static AbsoluteTimestampsContainer
+  absoluteTimestampsBlockWithEqualTimestampIntervals();
 };

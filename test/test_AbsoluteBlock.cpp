@@ -35,29 +35,42 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "gtest/gtest.h"
 
 class AbsoluteBlockTest : public ::testing::Test {
- protected:
-  AbsoluteBlock absoluteBlockNormal1 = AbsoluteBlockExampleFactory::absoluteBlockNormal();
-  AbsoluteBlock absoluteBlockNormal2 = AbsoluteBlockExampleFactory::absoluteBlockNormal();
-  AbsoluteBlock absoluteBlockWithTwoElement1 = AbsoluteBlockExampleFactory::absoluteBlockTwoElement();
-  AbsoluteBlock absoluteBlockWithTwoElement2 = AbsoluteBlockExampleFactory::absoluteBlockTwoElement();
-  AbsoluteBlock absoluteBlockWithOneElement1 = AbsoluteBlockExampleFactory::absoluteBlockOneElement();
-  AbsoluteBlock absoluteBlockWithOneElement2 = AbsoluteBlockExampleFactory::absoluteBlockOneElement();
-  AbsoluteBlock absoluteBlockWith0Element1 = AbsoluteBlockExampleFactory::absoluteBlock0Element();
-  AbsoluteBlock absoluteBlockWith0Element2 = AbsoluteBlockExampleFactory::absoluteBlock0Element();
-  AbsoluteBlock absoluteBlockEmpty1 = AbsoluteBlockExampleFactory::absoluteBlockEmpty();
-  AbsoluteBlock absoluteBlockEmpty2 = AbsoluteBlockExampleFactory::absoluteBlockEmpty();
+protected:
+  AbsoluteBlock absoluteBlockNormal1 =
+      AbsoluteBlockExampleFactory::absoluteBlockNormal();
+  AbsoluteBlock absoluteBlockNormal2 =
+      AbsoluteBlockExampleFactory::absoluteBlockNormal();
+  AbsoluteBlock absoluteBlockWithTwoElement1 =
+      AbsoluteBlockExampleFactory::absoluteBlockTwoElement();
+  AbsoluteBlock absoluteBlockWithTwoElement2 =
+      AbsoluteBlockExampleFactory::absoluteBlockTwoElement();
+  AbsoluteBlock absoluteBlockWithOneElement1 =
+      AbsoluteBlockExampleFactory::absoluteBlockOneElement();
+  AbsoluteBlock absoluteBlockWithOneElement2 =
+      AbsoluteBlockExampleFactory::absoluteBlockOneElement();
+  AbsoluteBlock absoluteBlockWith0Element1 =
+      AbsoluteBlockExampleFactory::absoluteBlock0Element();
+  AbsoluteBlock absoluteBlockWith0Element2 =
+      AbsoluteBlockExampleFactory::absoluteBlock0Element();
+  AbsoluteBlock absoluteBlockEmpty1 =
+      AbsoluteBlockExampleFactory::absoluteBlockEmpty();
+  AbsoluteBlock absoluteBlockEmpty2 =
+      AbsoluteBlockExampleFactory::absoluteBlockEmpty();
 };
 
 TEST_F(AbsoluteBlockTest, TestGetValues) {
-  EXPECT_EQ(this->absoluteBlockNormal1.getAbsoluteValues(), AbsoluteBlockExampleFactory::absoluteValuesNormal());
+  EXPECT_EQ(this->absoluteBlockNormal1.getAbsoluteValues(),
+            AbsoluteBlockExampleFactory::absoluteValuesNormal());
 }
 
 TEST_F(AbsoluteBlockTest, TestGetEmptyValues) {
-  EXPECT_EQ(this->absoluteBlockEmpty1.getAbsoluteValues(), AbsoluteBlockExampleFactory::absoluteValuesEmpty());
+  EXPECT_EQ(this->absoluteBlockEmpty1.getAbsoluteValues(),
+            AbsoluteBlockExampleFactory::absoluteValuesEmpty());
 }
 
 TEST_F(AbsoluteBlockTest, TestGet0Values) {
-  EXPECT_EQ(this->absoluteBlockWith0Element1.getAbsoluteValues(), AbsoluteBlockExampleFactory::absoluteValues0Element());
+  EXPECT_EQ(this->absoluteBlockWith0Element1.getAbsoluteValues(),
+            AbsoluteBlockExampleFactory::absoluteValues0Element());
 }
 
 TEST_F(AbsoluteBlockTest, CompareEmptyAndFullBlocks) {
@@ -65,7 +78,8 @@ TEST_F(AbsoluteBlockTest, CompareEmptyAndFullBlocks) {
 }
 
 TEST_F(AbsoluteBlockTest, CompareShortAndFullBlocks) {
-  EXPECT_FALSE(this->absoluteBlockWithOneElement1.isEqual(this->absoluteBlockNormal1));
+  EXPECT_FALSE(
+      this->absoluteBlockWithOneElement1.isEqual(this->absoluteBlockNormal1));
 }
 
 TEST_F(AbsoluteBlockTest, CompareSameContentBlocks) {
@@ -73,11 +87,13 @@ TEST_F(AbsoluteBlockTest, CompareSameContentBlocks) {
 }
 
 TEST_F(AbsoluteBlockTest, CompareFullAndShortBlocks) {
-  EXPECT_FALSE(this->absoluteBlockNormal1.isEqual(this->absoluteBlockWithOneElement1));
+  EXPECT_FALSE(
+      this->absoluteBlockNormal1.isEqual(this->absoluteBlockWithOneElement1));
 }
 
 TEST_F(AbsoluteBlockTest, CompareLongWithMediumBlocks) {
-  EXPECT_FALSE(this->absoluteBlockNormal1.isEqual(this->absoluteBlockWithTwoElement1));
+  EXPECT_FALSE(
+      this->absoluteBlockNormal1.isEqual(this->absoluteBlockWithTwoElement1));
 }
 
 TEST_F(AbsoluteBlockTest, CompareEmptyWithEmptyBlocks) {
@@ -85,9 +101,11 @@ TEST_F(AbsoluteBlockTest, CompareEmptyWithEmptyBlocks) {
 }
 
 TEST_F(AbsoluteBlockTest, CompareZeroWithZeroBlocks) {
-  EXPECT_TRUE(this->absoluteBlockWith0Element1.isEqual(this->absoluteBlockWith0Element2));
+  EXPECT_TRUE(this->absoluteBlockWith0Element1.isEqual(
+      this->absoluteBlockWith0Element2));
 }
 
 TEST_F(AbsoluteBlockTest, CompareEmptyWithZeroBlocks) {
-  EXPECT_FALSE(this->absoluteBlockWith0Element1.isEqual(this->absoluteBlockEmpty1));
+  EXPECT_FALSE(
+      this->absoluteBlockWith0Element1.isEqual(this->absoluteBlockEmpty1));
 }

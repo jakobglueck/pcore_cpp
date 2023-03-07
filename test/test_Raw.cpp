@@ -31,11 +31,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-#include <gtest/gtest.h>
 #include "RawExampleFactory.h"
+#include <gtest/gtest.h>
 
 class RawTest : public ::testing::Test {
- protected:
+protected:
   Raw normalRawWithAccMetaData1 = RawExampleFactory::normalRaw();
   Raw normalRawWithAccMetaData2 = RawExampleFactory::normalRaw();
   Raw comparableRawWithPpgMetaData1 = RawExampleFactory::comparableRaw();
@@ -44,22 +44,26 @@ class RawTest : public ::testing::Test {
 
 TEST_F(RawTest, TestGetMethodeRaw) {
   std::vector<Sensor> sensors = this->normalRawWithAccMetaData1.getSensors();
-  std::vector<Sensor> comparableSensors = SensorExampleFactory::normalVectorWithSensors();
+  std::vector<Sensor> comparableSensors =
+      SensorExampleFactory::normalVectorWithSensors();
   for (size_t i = 0; i < sensors.size(); i++) {
     EXPECT_TRUE(sensors[i].isEqual(comparableSensors[i]));
   }
 }
 
 TEST_F(RawTest, CompareEqualNormalRaw) {
-  EXPECT_TRUE(this->normalRawWithAccMetaData1.isEqual(this->normalRawWithAccMetaData2));
+  EXPECT_TRUE(
+      this->normalRawWithAccMetaData1.isEqual(this->normalRawWithAccMetaData2));
 }
 
 TEST_F(RawTest, CompareDifferentRaw) {
-  EXPECT_FALSE(this->normalRawWithAccMetaData1.isEqual(this->comparableRawWithPpgMetaData1));
+  EXPECT_FALSE(this->normalRawWithAccMetaData1.isEqual(
+      this->comparableRawWithPpgMetaData1));
 }
 
 TEST_F(RawTest, CompareEqualComparableRaw) {
-  EXPECT_TRUE(this->comparableRawWithPpgMetaData1.isEqual(this->comparableRawWithPpgMetaData2));
+  EXPECT_TRUE(this->comparableRawWithPpgMetaData1.isEqual(
+      this->comparableRawWithPpgMetaData2));
 }
 
 TEST_F(RawTest, TestSerializeAndDeserializeNormalRaw) {
@@ -102,6 +106,7 @@ TEST_F(RawTest, CheckRawPtr) {
 }
 
 TEST_F(RawTest, CheckRawNullPtr) {
-  ProtobufRaw* protobufRaw1 = nullptr;
-  EXPECT_THROW(this->normalRawWithAccMetaData1.serialize(protobufRaw1), std::invalid_argument);
+  ProtobufRaw *protobufRaw1 = nullptr;
+  EXPECT_THROW(this->normalRawWithAccMetaData1.serialize(protobufRaw1),
+               std::invalid_argument);
 }

@@ -33,35 +33,34 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "AbsoluteBlock.h"
 
-AbsoluteBlock::AbsoluteBlock(std::vector<int32_t>& absoluteValues) : absoluteValues(absoluteValues) {}
+AbsoluteBlock::AbsoluteBlock(std::vector<int32_t> &absoluteValues)
+    : absoluteValues(absoluteValues) {}
 
-AbsoluteBlock::AbsoluteBlock(Json::Value& absoluteBlock) {
-  Json::Value AbsoluteValuesJson = absoluteBlock["absolute_values"];
-  Json::Value::ArrayIndex n = AbsoluteValuesJson.size();
+AbsoluteBlock::AbsoluteBlock(Json::Value &absoluteBlock) {
+  Json::Value absoluteValuesJson = absoluteBlock["absolute_values"];
   std::vector<int32_t> absoluteValues;
+  Json::Value::ArrayIndex n = absoluteValuesJson.size();
   absoluteValues.reserve(n);
-  for (auto& AbsoluteValueJson : AbsoluteValuesJson) {
+  for (auto &AbsoluteValueJson : absoluteValuesJson) {
     absoluteValues.push_back(AbsoluteValueJson.asInt());
   }
   this->absoluteValues = absoluteValues;
 }
 
-AbsoluteBlock::AbsoluteBlock() {
-  this->absoluteValues = {};
-}
+AbsoluteBlock::AbsoluteBlock() { this->absoluteValues = {}; }
 
 std::vector<int32_t> AbsoluteBlock::getAbsoluteValues() {
   return this->absoluteValues;
 }
 
-bool AbsoluteBlock::isEqual(AbsoluteBlock& block) {
+bool AbsoluteBlock::isEqual(AbsoluteBlock &block) {
   return this->absoluteValues == block.absoluteValues;
 }
 
 Json::Value AbsoluteBlock::toJson() {
   Json::Value absoluteBlock;
   Json::Value absoluteValues(Json::arrayValue);
-  for (auto& absoluteValue : this->absoluteValues) {
+  for (auto &absoluteValue : this->absoluteValues) {
     absoluteValues.append(absoluteValue);
   }
   absoluteBlock["absolute_values"] = absoluteValues;

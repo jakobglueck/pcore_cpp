@@ -35,65 +35,60 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 Raw::Raw(std::vector<Sensor> sensors) : sensors(sensors) {}
 
-Raw::Raw(const ProtobufRaw& protobufRaw) {
-    this->deserialize(protobufRaw);
+Raw::Raw(const ProtobufRaw &protobufRaw) { this->deserialize(protobufRaw); }
+
+Raw::Raw(Json::Value &raw, DataForm dataForm) {
+  std::vector<Sensor> sensors;
+  auto raws = raw["sensors"];
+  auto n = raws.size();
+  sensors.reserve(n);
+  for (Json::Value::ArrayIndex i = 0; i < n; i++) {
+    sensors.push_back(Sensor(raws[i], dataForm));
+  }
+  this->sensors = sensors;
 }
 
-Raw::Raw(Json::Value& raw, DataForm dataForm) {
-    std::vector<Sensor> sensors;
-    auto raws = raw["sensors"];
-    auto n = raws.size();
-    sensors.reserve(n);
-    for (Json::Value::ArrayIndex i = 0; i < n; i++) {
-        sensors.push_back(Sensor(raws[i], dataForm));
+Raw::Raw() { this->sensors = std::vector<Sensor>{}; }
+
+std::vector<Sensor> Raw::getSensors() { return this->sensors; }
+
+bool Raw::isEqual(Raw &raw) {
+  auto n = this->sensors.size();
+  if (n != raw.sensors.size()) {
+    return false;
+  }
+  for (size_t i = 0; i < n; i++) {
+    if (!this->sensors[i].isEqual(raw.sensors[i])) {
+      return false;
     }
-    this->sensors = sensors;
+  }
+  return true;
 }
 
-Raw::Raw() {
-    this->sensors = std::vector<Sensor>{};
-}
-
-std::vector<Sensor> Raw::getSensors() {
-    return this->sensors;
-}
-
-bool Raw::isEqual(Raw& raw) {
-    if (this->sensors.size() != raw.sensors.size()) {
-        return false;
-    }
-    for (size_t i = 0; i < this->sensors.size(); i++) {
-        if (!this->sensors[i].isEqual(raw.sensors[i])) {
-            return false;
-        }
-    }
-    return true;
-}
-
-void Raw::serialize(ProtobufRaw* protobufRaw) {
-    if (protobufRaw == nullptr) {
-        throw std::invalid_argument("protobufRaw is a null pointer");
-    }
-    for (auto& sensor : this->sensors) {
-        sensor.serialize(protobufRaw->add_sensors());
-    }
+void Raw::serialize(ProtobufRaw *protobufRaw) {
+  if (protobufRaw == nullptr) {
+    throw std::invalid_argument("protobufRaw is a null pointer");
+  }
+  for (auto &sensor : this->sensors) {
+    sensor.serialize(protobufRaw->add_sensors());
+  }
 }
 
 Json::Value Raw::toJson(DataForm dataForm) {
-    Json::Value sensors(Json::arrayValue);
-    Json::Value raw;
-    for (auto& sensor : this->sensors) {
-        sensors.append(sensor.toJson(dataForm));
-    }
-    raw["sensors"] = sensors;
-    return raw;
+  Json::Value sensors(Json::arrayValue);
+  Json::Value raw;
+  for (auto &sensor : this->sensors) {
+    sensors.append(sensor.toJson(dataForm));
+  }
+  raw["sensors"] = sensors;
+  return raw;
 }
 
-void Raw::deserialize(const ProtobufRaw& protobufRaw) {
-    std::vector<Sensor> sensors;
-    sensors.reserve(protobufRaw.sensors().size());
-    for (auto& protobufSensor : protobufRaw.sensors()) {
-        sensors.push_back(Sensor(protobufSensor));
-    }
-    this->sensors = sensors;
+void Raw::deserialize(const ProtobufRaw &protobufRaw) {
+  std::vector<Sensor> sensors;
+  sensors.reserve(protobufRaw.sensors().size());
+  for (auto &protobufSensor : protobufRaw.sensors()) {
+    sensors.push_back(Sensor(protobufSensor));
+  }
+  this->sensors = sensors;
 }

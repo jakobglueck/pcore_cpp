@@ -33,15 +33,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "AbsoluteTimestampsContainer.h"
 
-AbsoluteTimestampsContainer::AbsoluteTimestampsContainer(std::vector<uint64_t>& unixTimestamps_ms) : unixTimestamps_ms(unixTimestamps_ms) {}
+AbsoluteTimestampsContainer::AbsoluteTimestampsContainer(
+    std::vector<uint64_t> &unixTimestamps_ms)
+    : unixTimestamps_ms(unixTimestamps_ms) {}
 
-AbsoluteTimestampsContainer::AbsoluteTimestampsContainer(Json::Value& absoluteTimestampsContainer) {
-  Json::Value absoluteTimestampsContainerJson = absoluteTimestampsContainer["unix_timestamps_ms"];
-  Json::Value::ArrayIndex n = absoluteTimestampsContainerJson.size();
+AbsoluteTimestampsContainer::AbsoluteTimestampsContainer(
+    Json::Value &absoluteTimestampsContainer) {
+  Json::Value AbsoluteUnixTimestampsJson =
+      absoluteTimestampsContainer["unix_timestamps_ms"];
   std::vector<uint64_t> absoluteUnixTimestamps;
+  Json::Value::ArrayIndex n = AbsoluteUnixTimestampsJson.size();
   absoluteUnixTimestamps.reserve(n);
-  for (auto& absoluteTimestampJson : absoluteTimestampsContainerJson) {
-    absoluteUnixTimestamps.push_back(absoluteTimestampJson.asUInt64());
+  for (auto &absoluteUnixTimestampJson : AbsoluteUnixTimestampsJson) {
+    absoluteUnixTimestamps.push_back(absoluteUnixTimestampJson.asUInt64());
   }
   this->unixTimestamps_ms = absoluteUnixTimestamps;
 }
@@ -54,14 +58,15 @@ std::vector<uint64_t> AbsoluteTimestampsContainer::getUnixTimestamps() {
   return this->unixTimestamps_ms;
 }
 
-bool AbsoluteTimestampsContainer::isEqual(AbsoluteTimestampsContainer& timestamps) {
+bool AbsoluteTimestampsContainer::isEqual(
+    AbsoluteTimestampsContainer &timestamps) {
   return this->unixTimestamps_ms == timestamps.unixTimestamps_ms;
 }
 
 Json::Value AbsoluteTimestampsContainer::toJson() {
   Json::Value absoluteTimestampsContainer;
   Json::Value absoluteUnixTimestamps(Json::arrayValue);
-  for (auto& unixTimestamp : this->unixTimestamps_ms) {
+  for (auto &unixTimestamp : this->unixTimestamps_ms) {
     absoluteUnixTimestamps.append(unixTimestamp);
   }
   absoluteTimestampsContainer["unix_timestamps_ms"] = absoluteUnixTimestamps;

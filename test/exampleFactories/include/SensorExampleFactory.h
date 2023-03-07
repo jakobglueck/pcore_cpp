@@ -38,7 +38,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "Sensor.h"
 
 class SensorExampleFactory {
- public:
+public:
   static Sensor normalSensor();
   static Sensor sensorWithOneUnixAndOneValue();
   static Sensor sensorWithNUllUnixAndNUllValue();

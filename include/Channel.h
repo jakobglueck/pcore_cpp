@@ -43,14 +43,19 @@ using ProtobufChannel = com::preventicus::pcore::Raw_Sensor_Channel;
 using ProtobufSensorType = com::preventicus::pcore::SensorType;
 
 class Channel final {
- public:
-  Channel(AccMetaData& accMetaData, AbsoluteBlock absoluteBlock, std::vector<size_t> blockIdxs);
-  Channel(PpgMetaData& ppgMetaData, AbsoluteBlock absoluteBlock, std::vector<size_t> blockIdxs);
-  Channel(PpgMetaData& ppgMetaData, std::vector<DifferentialBlock>& differentialBlocks);
-  Channel(AccMetaData& accMetaData, std::vector<DifferentialBlock>& differentialBlocks);
-  Channel(Json::Value& channel, Json::Value sensorType, std::vector<size_t> blockIdxs);
-  Channel(Json::Value& channel, Json::Value sensorType);
-  Channel(const ProtobufChannel& protobufChannel);
+public:
+  Channel(AccMetaData &accMetaData, AbsoluteBlock absoluteBlock,
+          std::vector<size_t> blockIdxs);
+  Channel(PpgMetaData &ppgMetaData, AbsoluteBlock absoluteBlock,
+          std::vector<size_t> blockIdxs);
+  Channel(PpgMetaData &ppgMetaData,
+          std::vector<DifferentialBlock> &differentialBlocks);
+  Channel(AccMetaData &accMetaData,
+          std::vector<DifferentialBlock> &differentialBlocks);
+  Channel(Json::Value &channel, Json::Value &sensor_type,
+          std::vector<size_t> blockIdxs);
+  Channel(Json::Value &channel, Json::Value &sensor_type);
+  Channel(const ProtobufChannel &protobufChannel);
   Channel();
 
   std::vector<DifferentialBlock> getDifferentialBlocks();
@@ -58,16 +63,21 @@ class Channel final {
   AccMetaData getAccMetaData();
   PpgMetaData getPpgMetaData();
 
-  bool isEqual(Channel& channel);
+  bool isEqual(Channel &channel);
   Json::Value toJson(DataForm dataForm, ProtobufSensorType protobufSensorType);
-  void serialize(ProtobufChannel* protobufChannel);
+  void serialize(ProtobufChannel *protobufChannel);
 
- private:
-  std::vector<DifferentialBlock> calculateDifferentialBlocks(AbsoluteBlock absoluteBlock, std::vector<size_t> blockIdxs);
-  DifferentialBlock createDifferentialBlock(size_t fromIdx, size_t toIdx, std::vector<int32_t>& absoluteValues);
-  AbsoluteBlock calculateAbsoluteBlock(std::vector<DifferentialBlock> differentialBlocks);
+private:
+  std::vector<DifferentialBlock>
+  calculateDifferentialBlocks(AbsoluteBlock absoluteBlock,
+                              std::vector<size_t> blocksIdxs);
+  DifferentialBlock
+  createDifferentialBlock(size_t fromIdx, size_t toIdx,
+                          std::vector<int32_t> &absoluteValues);
+  AbsoluteBlock
+  calculateAbsoluteBlock(std::vector<DifferentialBlock> differentialBlocks);
 
-  void deserialize(const ProtobufChannel& protobufChannel);
+  void deserialize(const ProtobufChannel &protobufChannel);
 
   PpgMetaData ppgMetaData;
   AccMetaData accMetaData;

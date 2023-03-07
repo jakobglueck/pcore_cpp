@@ -35,7 +35,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "AccMetaData.h"
 
 class AccMetaDataExampleFactory {
- public:
+public:
   static AccMetaData accMetaDataWithCoordinateX();
   static AccMetaData accMetaDataWithCoordinateY();
   static AccMetaData accMetaDataWithCoordinateZ();

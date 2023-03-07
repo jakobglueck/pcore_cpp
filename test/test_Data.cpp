@@ -31,11 +31,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-#include <gtest/gtest.h>
 #include "DataExampleFactory.h"
+#include <gtest/gtest.h>
 
 class DataTest : public ::testing::Test {
- protected:
+protected:
   Data normalDataWithAccMetaData1 = DataExampleFactory::normalData();
   Data normalDataWithAccMetaData2 = DataExampleFactory::normalData();
   Data comparableDataPpgMetaData1 = DataExampleFactory::comparableData();
@@ -46,20 +46,24 @@ TEST_F(DataTest, TestGetMethodData) {
   Raw raw = this->normalDataWithAccMetaData1.getRaw();
   Raw comparableRaw = RawExampleFactory::normalRaw();
   EXPECT_TRUE(raw.isEqual(comparableRaw));
-  Header header = HeaderExampleFactory::normalHeaderWithPositiveTimeZoneOffset_min();
+  Header header =
+      HeaderExampleFactory::normalHeaderWithPositiveTimeZoneOffset_min();
   EXPECT_TRUE(this->normalDataWithAccMetaData1.getHeader().isEqual(header));
 }
 
 TEST_F(DataTest, CompareEqualNormalData) {
-  EXPECT_TRUE(this->normalDataWithAccMetaData1.isEqual(this->normalDataWithAccMetaData2));
+  EXPECT_TRUE(this->normalDataWithAccMetaData1.isEqual(
+      this->normalDataWithAccMetaData2));
 }
 
 TEST_F(DataTest, CompareDifferentData) {
-  EXPECT_FALSE(this->comparableDataPpgMetaData1.isEqual(this->normalDataWithAccMetaData1));
+  EXPECT_FALSE(this->comparableDataPpgMetaData1.isEqual(
+      this->normalDataWithAccMetaData1));
 }
 
 TEST_F(DataTest, CompareEqualComparableData) {
-  EXPECT_TRUE(this->comparableDataPpgMetaData1.isEqual(this->comparableDataPpgMetaData2));
+  EXPECT_TRUE(this->comparableDataPpgMetaData1.isEqual(
+      this->comparableDataPpgMetaData2));
 }
 
 TEST_F(DataTest, TestSerializeAndDeserializeData) {
@@ -102,6 +106,7 @@ TEST_F(DataTest, CheckDataPtr) {
 }
 
 TEST_F(DataTest, CheckDataNullPtr) {
-  ProtobufData* protobufData = nullptr;
-  EXPECT_THROW(this->comparableDataPpgMetaData1.serialize(protobufData), std::invalid_argument);
+  ProtobufData *protobufData = nullptr;
+  EXPECT_THROW(this->comparableDataPpgMetaData1.serialize(protobufData),
+               std::invalid_argument);
 }

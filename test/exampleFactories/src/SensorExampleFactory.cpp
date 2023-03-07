@@ -34,65 +34,100 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "SensorExampleFactory.h"
 
 Sensor SensorExampleFactory::normalSensor() {
-  std::vector<Channel> normalVectorChannel = ChannelExampleFactory::normalVectorWithChannel();
-  DifferentialTimestampsContainer normalDifferentialTimestamps = DifferentialTimestampsContainerExampleFactory::normalDifferentialTimestamps();
-  return Sensor(normalVectorChannel, normalDifferentialTimestamps, ProtobufSensorType::SENSOR_TYPE_ACC);
+  std::vector<Channel> normalVectorChannel =
+      ChannelExampleFactory::normalVectorWithChannel();
+  DifferentialTimestampsContainer normalDifferentialTimestamps =
+      DifferentialTimestampsContainerExampleFactory::
+          normalDifferentialTimestamps();
+  return Sensor(normalVectorChannel, normalDifferentialTimestamps,
+                ProtobufSensorType::SENSOR_TYPE_ACC);
 }
 
 Sensor SensorExampleFactory::comparableSensor() {
-  std::vector<Channel> comparableVectorChannel = ChannelExampleFactory::comparableVectorWithChannel();
-  AbsoluteTimestampsContainer absoluteTimestamps = AbsoluteTimestampsContainerExampleFactory::normalAbsoluteTimestamps();
-  return Sensor(comparableVectorChannel, absoluteTimestamps, ProtobufSensorType::SENSOR_TYPE_PPG);
+  std::vector<Channel> comparableVectorChannel =
+      ChannelExampleFactory::comparableVectorWithChannel();
+  AbsoluteTimestampsContainer absoluteTimestamps =
+      AbsoluteTimestampsContainerExampleFactory::normalAbsoluteTimestamps();
+  return Sensor(comparableVectorChannel, absoluteTimestamps,
+                ProtobufSensorType::SENSOR_TYPE_PPG);
 }
 
 Sensor SensorExampleFactory::sensorWithOneUnixAndOneValue() {
-  std::vector<Channel> comparableVectorChannel = ChannelExampleFactory::normalVectorWithOneValueBlock();
-  AbsoluteTimestampsContainer absoluteTimestamps = AbsoluteTimestampsContainerExampleFactory::absoluteTimestampsOneElement();
-  return Sensor(comparableVectorChannel, absoluteTimestamps, ProtobufSensorType::SENSOR_TYPE_PPG);
+  std::vector<Channel> comparableVectorChannel =
+      ChannelExampleFactory::normalVectorWithOneValueBlock();
+  AbsoluteTimestampsContainer absoluteTimestamps =
+      AbsoluteTimestampsContainerExampleFactory::absoluteTimestampsOneElement();
+  return Sensor(comparableVectorChannel, absoluteTimestamps,
+                ProtobufSensorType::SENSOR_TYPE_PPG);
 }
 
 Sensor SensorExampleFactory::sensorWithNUllUnixAndNUllValue() {
-  std::vector<Channel> comparableVectorChannel = ChannelExampleFactory::normalVectorWithNUllValueBlock();
-  AbsoluteTimestampsContainer absoluteTimestamps = AbsoluteTimestampsContainerExampleFactory::absoluteTimestampsEmpty();
-  return Sensor(comparableVectorChannel, absoluteTimestamps, ProtobufSensorType::SENSOR_TYPE_PPG);
+  std::vector<Channel> comparableVectorChannel =
+      ChannelExampleFactory::normalVectorWithNUllValueBlock();
+  AbsoluteTimestampsContainer absoluteTimestamps =
+      AbsoluteTimestampsContainerExampleFactory::absoluteTimestampsEmpty();
+  return Sensor(comparableVectorChannel, absoluteTimestamps,
+                ProtobufSensorType::SENSOR_TYPE_PPG);
 }
 
 Sensor SensorExampleFactory::sensorWithOneUnixAndOneValueInLastBlock() {
-  std::vector<Channel> comparableVectorChannel = ChannelExampleFactory::normalVectorWithOneValueInLastBlock();
-  AbsoluteTimestampsContainer absoluteTimestamps = AbsoluteTimestampsContainerExampleFactory::absoluteUNixTimestampBlockWithOneUnixInLastBlock();
-  return Sensor(comparableVectorChannel, absoluteTimestamps, ProtobufSensorType::SENSOR_TYPE_PPG);
+  std::vector<Channel> comparableVectorChannel =
+      ChannelExampleFactory::normalVectorWithOneValueInLastBlock();
+  AbsoluteTimestampsContainer absoluteTimestamps =
+      AbsoluteTimestampsContainerExampleFactory::
+          absoluteUNixTimestampBlockWithOneUnixInLastBlock();
+  return Sensor(comparableVectorChannel, absoluteTimestamps,
+                ProtobufSensorType::SENSOR_TYPE_PPG);
 }
 
 Sensor SensorExampleFactory::sensorWithEqualTimestampsInterval() {
-  std::vector<Channel> comparableVectorChannel = ChannelExampleFactory::normalVectorWithEqualTimestampIntervals();
-  AbsoluteTimestampsContainer absoluteTimestamps = AbsoluteTimestampsContainerExampleFactory::absoluteTimestampsBlockWithEqualTimestampIntervals();
-  return Sensor(comparableVectorChannel, absoluteTimestamps, ProtobufSensorType::SENSOR_TYPE_PPG);
+  std::vector<Channel> comparableVectorChannel =
+      ChannelExampleFactory::normalVectorWithEqualTimestampIntervals();
+  AbsoluteTimestampsContainer absoluteTimestamps =
+      AbsoluteTimestampsContainerExampleFactory::
+          absoluteTimestampsBlockWithEqualTimestampIntervals();
+  return Sensor(comparableVectorChannel, absoluteTimestamps,
+                ProtobufSensorType::SENSOR_TYPE_PPG);
 }
 
 Sensor SensorExampleFactory::absoluteJsonDataPpgSensor() {
-  std::vector<Channel> comparableVectorChannel = ChannelExampleFactory::normalVectorWithAbsoluteJsonDataPpgChannel();
-  AbsoluteTimestampsContainer absoluteTimestamps = AbsoluteTimestampsContainerExampleFactory::absoluteJsonDataTimestampsContainerPgg();
-  return Sensor(comparableVectorChannel, absoluteTimestamps, ProtobufSensorType::SENSOR_TYPE_PPG);
+  std::vector<Channel> comparableVectorChannel =
+      ChannelExampleFactory::normalVectorWithAbsoluteJsonDataPpgChannel();
+  AbsoluteTimestampsContainer absoluteTimestamps =
+      AbsoluteTimestampsContainerExampleFactory::
+          absoluteJsonDataTimestampsContainerPgg();
+  return Sensor(comparableVectorChannel, absoluteTimestamps,
+                ProtobufSensorType::SENSOR_TYPE_PPG);
 }
 
 Sensor SensorExampleFactory::absoluteJsonDataAccSensor() {
-  std::vector<Channel> comparableVectorChannel = ChannelExampleFactory::normalVectorWithAbsoluteJsonDataAccChannel();
-  AbsoluteTimestampsContainer absoluteTimestamps = AbsoluteTimestampsContainerExampleFactory::absoluteJsonDataTimestampsContainerAcc();
-  return Sensor(comparableVectorChannel, absoluteTimestamps, ProtobufSensorType::SENSOR_TYPE_ACC);
+  std::vector<Channel> comparableVectorChannel =
+      ChannelExampleFactory::normalVectorWithAbsoluteJsonDataAccChannel();
+  AbsoluteTimestampsContainer absoluteTimestamps =
+      AbsoluteTimestampsContainerExampleFactory::
+          absoluteJsonDataTimestampsContainerAcc();
+  return Sensor(comparableVectorChannel, absoluteTimestamps,
+                ProtobufSensorType::SENSOR_TYPE_ACC);
 }
 
 Sensor SensorExampleFactory::differentialJsonDataPpgSensor() {
-  std::vector<Channel> comparableVectorChannel = ChannelExampleFactory::normalVectorWithDifferentialJsonDataPpgChannel();
+  std::vector<Channel> comparableVectorChannel =
+      ChannelExampleFactory::normalVectorWithDifferentialJsonDataPpgChannel();
   DifferentialTimestampsContainer differentialTimestampsContainer =
-      DifferentialTimestampsContainerExampleFactory::differentiaJsonDataTimestampsContainerPpg();
-  return Sensor(comparableVectorChannel, differentialTimestampsContainer, ProtobufSensorType::SENSOR_TYPE_PPG);
+      DifferentialTimestampsContainerExampleFactory::
+          differentiaJsonDataTimestampsContainerPpg();
+  return Sensor(comparableVectorChannel, differentialTimestampsContainer,
+                ProtobufSensorType::SENSOR_TYPE_PPG);
 }
 
 Sensor SensorExampleFactory::differentialJsonDataAccSensor() {
-  std::vector<Channel> comparableVectorChannel = ChannelExampleFactory::normalVectorWithDifferentialJsonDataAccChannel();
+  std::vector<Channel> comparableVectorChannel =
+      ChannelExampleFactory::normalVectorWithDifferentialJsonDataAccChannel();
   DifferentialTimestampsContainer differentialTimestampsContainer =
-      DifferentialTimestampsContainerExampleFactory::differentiaJsonDataTimestampsContainerAcc();
-  return Sensor(comparableVectorChannel, differentialTimestampsContainer, ProtobufSensorType::SENSOR_TYPE_ACC);
+      DifferentialTimestampsContainerExampleFactory::
+          differentiaJsonDataTimestampsContainerAcc();
+  return Sensor(comparableVectorChannel, differentialTimestampsContainer,
+                ProtobufSensorType::SENSOR_TYPE_ACC);
 }
 
 std::vector<Sensor> SensorExampleFactory::normalVectorWithSensors() {
@@ -106,11 +141,16 @@ std::vector<Sensor> SensorExampleFactory::comparableVectorWithSensors() {
 }
 
 std::vector<Sensor> SensorExampleFactory::vectorWithAbsoluteJsonDataSensor() {
-  std::vector<Sensor> sensor = {SensorExampleFactory::absoluteJsonDataPpgSensor(), SensorExampleFactory::absoluteJsonDataAccSensor()};
+  std::vector<Sensor> sensor = {
+      SensorExampleFactory::absoluteJsonDataPpgSensor(),
+      SensorExampleFactory::absoluteJsonDataAccSensor()};
   return sensor;
 }
 
-std::vector<Sensor> SensorExampleFactory::vectorWithDifferentialJsonDataSensor() {
-  std::vector<Sensor> sensor = {SensorExampleFactory::differentialJsonDataPpgSensor(), SensorExampleFactory::differentialJsonDataAccSensor()};
+std::vector<Sensor>
+SensorExampleFactory::vectorWithDifferentialJsonDataSensor() {
+  std::vector<Sensor> sensor = {
+      SensorExampleFactory::differentialJsonDataPpgSensor(),
+      SensorExampleFactory::differentialJsonDataAccSensor()};
   return sensor;
 }

@@ -31,63 +31,86 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-#include <gtest/gtest.h>
 #include "AbsoluteTimestampsContainerExampleFactory.h"
+#include <gtest/gtest.h>
 
 class AbsoluteTimestampsContainerTest : public ::testing::Test {
- protected:
-  AbsoluteTimestampsContainer absoluteTimestampsNormal1 = AbsoluteTimestampsContainerExampleFactory::absoluteTimestampsNormal();
-  AbsoluteTimestampsContainer absoluteTimestampsNormal2 = AbsoluteTimestampsContainerExampleFactory::absoluteTimestampsNormal();
-  AbsoluteTimestampsContainer absoluteTimestampsWithTwoElement1 = AbsoluteTimestampsContainerExampleFactory::absoluteTimestampsTwoElement();
-  AbsoluteTimestampsContainer absoluteTimestampsWithTwoElement2 = AbsoluteTimestampsContainerExampleFactory::absoluteTimestampsTwoElement();
-  AbsoluteTimestampsContainer absoluteTimestampsWithOneElement1 = AbsoluteTimestampsContainerExampleFactory::absoluteTimestampsOneElement();
-  AbsoluteTimestampsContainer absoluteTimestampsWithOneElement2 = AbsoluteTimestampsContainerExampleFactory::absoluteTimestampsOneElement();
-  AbsoluteTimestampsContainer absoluteTimestampsWith01 = AbsoluteTimestampsContainerExampleFactory::absoluteTimestamps0();
-  AbsoluteTimestampsContainer absoluteTimestampsWith02 = AbsoluteTimestampsContainerExampleFactory::absoluteTimestamps0();
-  AbsoluteTimestampsContainer absoluteTimestampsEmpty1 = AbsoluteTimestampsContainerExampleFactory::absoluteTimestampsEmpty();
-  AbsoluteTimestampsContainer absoluteTimestampsEmpty2 = AbsoluteTimestampsContainerExampleFactory::absoluteTimestampsEmpty();
+protected:
+  AbsoluteTimestampsContainer absoluteTimestampsNormal1 =
+      AbsoluteTimestampsContainerExampleFactory::absoluteTimestampsNormal();
+  AbsoluteTimestampsContainer absoluteTimestampsNormal2 =
+      AbsoluteTimestampsContainerExampleFactory::absoluteTimestampsNormal();
+  AbsoluteTimestampsContainer absoluteTimestampsWithTwoElement1 =
+      AbsoluteTimestampsContainerExampleFactory::absoluteTimestampsTwoElement();
+  AbsoluteTimestampsContainer absoluteTimestampsWithTwoElement2 =
+      AbsoluteTimestampsContainerExampleFactory::absoluteTimestampsTwoElement();
+  AbsoluteTimestampsContainer absoluteTimestampsWithOneElement1 =
+      AbsoluteTimestampsContainerExampleFactory::absoluteTimestampsOneElement();
+  AbsoluteTimestampsContainer absoluteTimestampsWithOneElement2 =
+      AbsoluteTimestampsContainerExampleFactory::absoluteTimestampsOneElement();
+  AbsoluteTimestampsContainer absoluteTimestampsWith01 =
+      AbsoluteTimestampsContainerExampleFactory::absoluteTimestamps0();
+  AbsoluteTimestampsContainer absoluteTimestampsWith02 =
+      AbsoluteTimestampsContainerExampleFactory::absoluteTimestamps0();
+  AbsoluteTimestampsContainer absoluteTimestampsEmpty1 =
+      AbsoluteTimestampsContainerExampleFactory::absoluteTimestampsEmpty();
+  AbsoluteTimestampsContainer absoluteTimestampsEmpty2 =
+      AbsoluteTimestampsContainerExampleFactory::absoluteTimestampsEmpty();
 };
 
 TEST_F(AbsoluteTimestampsContainerTest, TestGetUnixTimestamps) {
-  EXPECT_EQ(this->absoluteTimestampsNormal1.getUnixTimestamps(), AbsoluteTimestampsContainerExampleFactory::unixTimestampsNormal_ms());
+  EXPECT_EQ(
+      this->absoluteTimestampsNormal1.getUnixTimestamps(),
+      AbsoluteTimestampsContainerExampleFactory::unixTimestampsNormal_ms());
 }
 
 TEST_F(AbsoluteTimestampsContainerTest, TestGetEmptyUnixTimestamps) {
-  EXPECT_EQ(this->absoluteTimestampsEmpty1.getUnixTimestamps(), AbsoluteTimestampsContainerExampleFactory::unixTimestampsEmpty_ms());
+  EXPECT_EQ(
+      this->absoluteTimestampsEmpty1.getUnixTimestamps(),
+      AbsoluteTimestampsContainerExampleFactory::unixTimestampsEmpty_ms());
 }
 
 TEST_F(AbsoluteTimestampsContainerTest, TestGet0UnixTimestamps) {
-  EXPECT_EQ(this->absoluteTimestampsWith01.getUnixTimestamps(), AbsoluteTimestampsContainerExampleFactory::unixTimestamps0_ms());
+  EXPECT_EQ(this->absoluteTimestampsWith01.getUnixTimestamps(),
+            AbsoluteTimestampsContainerExampleFactory::unixTimestamps0_ms());
 }
 
 TEST_F(AbsoluteTimestampsContainerTest, CompareEmptyAndFullBlocks) {
-  EXPECT_FALSE(this->absoluteTimestampsNormal1.isEqual(this->absoluteTimestampsEmpty1));
+  EXPECT_FALSE(
+      this->absoluteTimestampsNormal1.isEqual(this->absoluteTimestampsEmpty1));
 }
 
 TEST_F(AbsoluteTimestampsContainerTest, CompareShortAndFullBlocks) {
-  EXPECT_FALSE(this->absoluteTimestampsWithOneElement1.isEqual(this->absoluteTimestampsNormal1));
+  EXPECT_FALSE(this->absoluteTimestampsWithOneElement1.isEqual(
+      this->absoluteTimestampsNormal1));
 }
 
 TEST_F(AbsoluteTimestampsContainerTest, CompareSameContentBlocks) {
-  EXPECT_TRUE(this->absoluteTimestampsNormal1.isEqual(this->absoluteTimestampsNormal2));
+  EXPECT_TRUE(
+      this->absoluteTimestampsNormal1.isEqual(this->absoluteTimestampsNormal2));
 }
 
 TEST_F(AbsoluteTimestampsContainerTest, CompareFullAndOneBlocks) {
-  EXPECT_FALSE(this->absoluteTimestampsNormal1.isEqual(this->absoluteTimestampsWithOneElement1));
+  EXPECT_FALSE(this->absoluteTimestampsNormal1.isEqual(
+      this->absoluteTimestampsWithOneElement1));
 }
 
 TEST_F(AbsoluteTimestampsContainerTest, CompareFullAndShortBlocks) {
-  EXPECT_FALSE(this->absoluteTimestampsNormal1.isEqual(this->absoluteTimestampsWithOneElement1));
+  EXPECT_FALSE(this->absoluteTimestampsNormal1.isEqual(
+      this->absoluteTimestampsWithOneElement1));
 }
 
 TEST_F(AbsoluteTimestampsContainerTest, CompareEmptyWithEmptyBlocks) {
-  EXPECT_TRUE(this->absoluteTimestampsEmpty1.isEqual(this->absoluteTimestampsEmpty2));
+  EXPECT_TRUE(
+      this->absoluteTimestampsEmpty1.isEqual(this->absoluteTimestampsEmpty2));
 }
 
 TEST_F(AbsoluteTimestampsContainerTest, CompareZeroWithZeroBlocks) {
-  EXPECT_TRUE(this->absoluteTimestampsWith01.isEqual(this->absoluteTimestampsWith02));
+  EXPECT_TRUE(
+      this->absoluteTimestampsWith01.isEqual(this->absoluteTimestampsWith02));
 }
 
 TEST_F(AbsoluteTimestampsContainerTest, CompareEmptyWithZeroBlocks) {
-  EXPECT_FALSE(this->absoluteTimestampsWith01.isEqual(this->absoluteTimestampsEmpty1));
+  EXPECT_FALSE(
+      this->absoluteTimestampsWith01.isEqual(this->absoluteTimestampsEmpty1));
 }

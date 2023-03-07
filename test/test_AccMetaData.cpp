@@ -31,56 +31,76 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-#include <gTest/gTest.h>
 #include "AccMetaDataExampleFactory.h"
+#include <gTest/gTest.h>
 
 class AccMetaDataTest : public ::testing::Test {
- protected:
-  AccMetaData accMetaDataWithCoordinateX1 = AccMetaDataExampleFactory::accMetaDataWithCoordinateX();
-  AccMetaData accMetaDataWithCoordinateX2 = AccMetaDataExampleFactory::accMetaDataWithCoordinateX();
-  AccMetaData accMetaDataWithCoordinateY1 = AccMetaDataExampleFactory::accMetaDataWithCoordinateY();
-  AccMetaData accMetaDataWithCoordinateY2 = AccMetaDataExampleFactory::accMetaDataWithCoordinateY();
-  AccMetaData accMetaDataWithCoordinateZ1 = AccMetaDataExampleFactory::accMetaDataWithCoordinateZ();
-  AccMetaData accMetaDataWithCoordinateZ2 = AccMetaDataExampleFactory::accMetaDataWithCoordinateZ();
-  AccMetaData accMetaDataWithEuclideanDifferenceNorm1 = AccMetaDataExampleFactory::accMetaDataWithEuclideanDifferenceNorm();
-  AccMetaData accMetaDataWithEuclideanDifferenceNorm2 = AccMetaDataExampleFactory::accMetaDataWithEuclideanDifferenceNorm();
-  AccMetaData accMetaDataNotSet1 = AccMetaDataExampleFactory::accMetaDataNotSet();
-  AccMetaData accMetaDataNotSet2 = AccMetaDataExampleFactory::accMetaDataNotSet();
+protected:
+  AccMetaData accMetaDataWithCoordinateX1 =
+      AccMetaDataExampleFactory::accMetaDataWithCoordinateX();
+  AccMetaData accMetaDataWithCoordinateX2 =
+      AccMetaDataExampleFactory::accMetaDataWithCoordinateX();
+  AccMetaData accMetaDataWithCoordinateY1 =
+      AccMetaDataExampleFactory::accMetaDataWithCoordinateY();
+  AccMetaData accMetaDataWithCoordinateY2 =
+      AccMetaDataExampleFactory::accMetaDataWithCoordinateY();
+  AccMetaData accMetaDataWithCoordinateZ1 =
+      AccMetaDataExampleFactory::accMetaDataWithCoordinateZ();
+  AccMetaData accMetaDataWithCoordinateZ2 =
+      AccMetaDataExampleFactory::accMetaDataWithCoordinateZ();
+  AccMetaData accMetaDataWithEuclideanDifferenceNorm1 =
+      AccMetaDataExampleFactory::accMetaDataWithEuclideanDifferenceNorm();
+  AccMetaData accMetaDataWithEuclideanDifferenceNorm2 =
+      AccMetaDataExampleFactory::accMetaDataWithEuclideanDifferenceNorm();
+  AccMetaData accMetaDataNotSet1 =
+      AccMetaDataExampleFactory::accMetaDataNotSet();
+  AccMetaData accMetaDataNotSet2 =
+      AccMetaDataExampleFactory::accMetaDataNotSet();
 };
 
 TEST_F(AccMetaDataTest, SetCoordAndCheck) {
-  EXPECT_EQ(this->accMetaDataWithCoordinateX1.getCoordinate(), ProtobufCoordinate::COORDINATE_X);
-  EXPECT_EQ(this->accMetaDataWithCoordinateX1.getNorm(), ProtobufNorm::NORM_NONE);
+  EXPECT_EQ(this->accMetaDataWithCoordinateX1.getCoordinate(),
+            ProtobufCoordinate::COORDINATE_X);
+  EXPECT_EQ(this->accMetaDataWithCoordinateX1.getNorm(),
+            ProtobufNorm::NORM_NONE);
 }
 
 TEST_F(AccMetaDataTest, SetNormAndCheck) {
-  EXPECT_EQ(this->accMetaDataWithEuclideanDifferenceNorm1.getCoordinate(), ProtobufCoordinate::COORDINATE_NONE);
-  EXPECT_EQ(accMetaDataWithEuclideanDifferenceNorm1.getNorm(), ProtobufNorm::NORM_EUCLIDEAN_DIFFERENCES_NORM);
+  EXPECT_EQ(this->accMetaDataWithEuclideanDifferenceNorm1.getCoordinate(),
+            ProtobufCoordinate::COORDINATE_NONE);
+  EXPECT_EQ(accMetaDataWithEuclideanDifferenceNorm1.getNorm(),
+            ProtobufNorm::NORM_EUCLIDEAN_DIFFERENCES_NORM);
 }
 
 TEST_F(AccMetaDataTest, SetEmptyConstructor) {
-  EXPECT_EQ(this->accMetaDataNotSet1.getCoordinate(), ProtobufCoordinate::COORDINATE_NONE);
+  EXPECT_EQ(this->accMetaDataNotSet1.getCoordinate(),
+            ProtobufCoordinate::COORDINATE_NONE);
   EXPECT_EQ(this->accMetaDataNotSet1.getNorm(), ProtobufNorm::NORM_NONE);
 }
 
 TEST_F(AccMetaDataTest, CompareEqualCoordinateX) {
-  EXPECT_TRUE(this->accMetaDataWithCoordinateX1.isEqual(this->accMetaDataWithCoordinateX2));
+  EXPECT_TRUE(this->accMetaDataWithCoordinateX1.isEqual(
+      this->accMetaDataWithCoordinateX2));
 }
 
 TEST_F(AccMetaDataTest, CompareEqualCoordinateY) {
-  EXPECT_TRUE(this->accMetaDataWithCoordinateY1.isEqual(this->accMetaDataWithCoordinateY2));
+  EXPECT_TRUE(this->accMetaDataWithCoordinateY1.isEqual(
+      this->accMetaDataWithCoordinateY2));
 }
 
 TEST_F(AccMetaDataTest, CompareEqualCoordinateZ) {
-  EXPECT_TRUE(this->accMetaDataWithCoordinateZ1.isEqual(this->accMetaDataWithCoordinateZ2));
+  EXPECT_TRUE(this->accMetaDataWithCoordinateZ1.isEqual(
+      this->accMetaDataWithCoordinateZ2));
 }
 
 TEST_F(AccMetaDataTest, CompareDifferentCoordinate) {
-  EXPECT_FALSE(this->accMetaDataWithCoordinateZ1.isEqual(this->accMetaDataWithCoordinateY1));
+  EXPECT_FALSE(this->accMetaDataWithCoordinateZ1.isEqual(
+      this->accMetaDataWithCoordinateY1));
 }
 
 TEST_F(AccMetaDataTest, CompareEqualNormEUCLID) {
-  EXPECT_TRUE(this->accMetaDataWithEuclideanDifferenceNorm1.isEqual(this->accMetaDataWithEuclideanDifferenceNorm2));
+  EXPECT_TRUE(this->accMetaDataWithEuclideanDifferenceNorm1.isEqual(
+      this->accMetaDataWithEuclideanDifferenceNorm2));
 }
 
 TEST_F(AccMetaDataTest, CompareEqualNotSet) {
@@ -113,13 +133,15 @@ TEST_F(AccMetaDataTest, CheckAccPtr) {
   ProtobufAccMetaData protobufData;
   this->accMetaDataWithEuclideanDifferenceNorm1.serialize(&protobufData);
   AccMetaData acc = AccMetaData(protobufData);
-  ProtobufAccMetaData* protobufDataPtr = &protobufData;
-  AccMetaData* ptr = &acc;
+  ProtobufAccMetaData *protobufDataPtr = &protobufData;
+  AccMetaData *ptr = &acc;
   EXPECT_FALSE(ptr == nullptr);
   EXPECT_FALSE(protobufDataPtr == nullptr);
 }
 
 TEST_F(AccMetaDataTest, CheckAccNullPtr) {
-  ProtobufAccMetaData* protobufData = nullptr;
-  EXPECT_THROW(this->accMetaDataWithEuclideanDifferenceNorm1.serialize(protobufData), std::invalid_argument);
+  ProtobufAccMetaData *protobufData = nullptr;
+  EXPECT_THROW(
+      this->accMetaDataWithEuclideanDifferenceNorm1.serialize(protobufData),
+      std::invalid_argument);
 }

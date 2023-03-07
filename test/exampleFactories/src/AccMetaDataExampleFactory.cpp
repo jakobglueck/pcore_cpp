@@ -46,7 +46,8 @@ AccMetaData AccMetaDataExampleFactory::accMetaDataWithCoordinateZ() {
   return AccMetaData(ProtobufCoordinate::COORDINATE_Z);
 }
 
-AccMetaData AccMetaDataExampleFactory::accMetaDataWithEuclideanDifferenceNorm() {
+AccMetaData
+AccMetaDataExampleFactory::accMetaDataWithEuclideanDifferenceNorm() {
   return AccMetaData(ProtobufNorm::NORM_EUCLIDEAN_DIFFERENCES_NORM);
 }
 

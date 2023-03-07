@@ -33,7 +33,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "Header.h"
 
-Header::Header(Version& version, int32_t timeZoneOffset_min) {
+Header::Header(Version &version, int32_t timeZoneOffset_min) {
   if (timeZoneOffset_min < 841 && timeZoneOffset_min > -721) {
     this->timeZoneOffset_min = timeZoneOffset_min;
     this->version = version;
@@ -42,17 +42,15 @@ Header::Header(Version& version, int32_t timeZoneOffset_min) {
   }
 }
 
-Header::Header(const ProtobufHeader& protobufHeader) {
+Header::Header(const ProtobufHeader &protobufHeader) {
   this->deserialize(protobufHeader);
 }
 
-Header::Header(Json::Value& header) {
+Header::Header(Json::Value &header) {
   int32_t timeZoneOffset_min = header["time_zone_offset_min"].asInt();
   if (timeZoneOffset_min < 841 && timeZoneOffset_min > -721) {
     this->version = Version(header["version"]);
     this->timeZoneOffset_min = timeZoneOffset_min;
-  } else {
-    throw std::out_of_range("Out of range");
   }
 }
 
@@ -61,21 +59,18 @@ Header::Header() {
   this->timeZoneOffset_min = 0;
 }
 
-int32_t Header::getTimeZoneOffset() {
-  return this->timeZoneOffset_min;
-}
+int32_t Header::getTimeZoneOffset() { return this->timeZoneOffset_min; }
 
-Version Header::getVersion() {
-  return this->version;
-}
+Version Header::getVersion() { return this->version; }
 
-bool Header::isEqual(Header& header) {
+bool Header::isEqual(Header &header) {
   return this->timeZoneOffset_min == header.timeZoneOffset_min;
 }
 
-void Header::serialize(ProtobufHeader* protobufHeader) {
+void Header::serialize(ProtobufHeader *protobufHeader) {
   if (protobufHeader == nullptr) {
-    throw std::invalid_argument("Error in serialize: protobufHeader is a null pointer");
+    throw std::invalid_argument(
+        "Error in serialize: protobufHeader is a null pointer");
   }
   protobufHeader->set_time_zone_offset_min(this->timeZoneOffset_min);
   ProtobufVersion protobufVersion;
@@ -85,31 +80,22 @@ void Header::serialize(ProtobufHeader* protobufHeader) {
 
 Json::Value Header::toJson(DataForm dataForm) {
   Json::Value header;
-  Json::Value timeZoneOffset_min(this->timeZoneOffset_min);
-  header["time_zone_offset_min"] = timeZoneOffset_min;
-  header["version"] = this->version.toJson();
-  header["data_form"] = this->toString(dataForm);
+  Json::Value timeZoneOffset_min(Json::intValue);
+  timeZoneOffset_min = this->timeZoneOffset_min;
+  if (dataForm == DataForm::ABSOLUTE) {
+    header["time_zone_offset_min"] = timeZoneOffset_min;
+    header["version"] = this->version.toJson();
+    header["data_form"] = "ABSOLUTE";
+  }
+  if (dataForm == DataForm::DIFFERENTIAL) {
+    header["time_zone_offset_min"] = timeZoneOffset_min;
+    header["version"] = this->version.toJson();
+    header["data_form"] = "DIFFERENTIAL";
+  }
   return header;
 }
 
-void Header::deserialize(const ProtobufHeader& protobufHeader) {
+void Header::deserialize(const ProtobufHeader &protobufHeader) {
   this->timeZoneOffset_min = protobufHeader.time_zone_offset_min();
   this->version = Version(protobufHeader.pcore_version());
-}
-
-std::string Header::toString(DataForm dataForm) {
-  switch (dataForm) {
-    case DataForm::ABSOLUTE: {
-      return "ABSOLUTE";
-    }
-    case DataForm::DIFFERENTIAL: {
-      return "DIFFERENTIAL";
-    }
-    case DataForm::NOT_SET: {
-      return "NOT_SET";
-    }
-    default: {
-      break;
-    }
-  }
 }

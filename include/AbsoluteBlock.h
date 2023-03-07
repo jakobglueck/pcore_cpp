@@ -36,15 +36,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <vector>
 
 class AbsoluteBlock final {
- public:
-  AbsoluteBlock(std::vector<int32_t>& absoluteValues);
-  AbsoluteBlock(Json::Value& absoluteBlock);
+public:
+  AbsoluteBlock(std::vector<int32_t> &absoluteValues);
+  AbsoluteBlock(Json::Value &absoluteBlock);
   AbsoluteBlock();
 
   std::vector<int32_t> getAbsoluteValues();
-  bool isEqual(AbsoluteBlock& block);
+  bool isEqual(AbsoluteBlock &block);
   Json::Value toJson();
 
- private:
+private:
   std::vector<int32_t> absoluteValues;
 };

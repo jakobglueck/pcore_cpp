@@ -35,26 +35,21 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 Data::Data(Raw raw, Header header) : raw(raw), header(header) {}
 
-Data::Data(const ProtobufData& protobufData) {
+Data::Data(const ProtobufData &protobufData) {
   this->deserialize(protobufData);
 }
 
-Data::Data(Json::Value& data) {
-  Json::Value headerJson = data["header"];
-  switch (this->toEnum(headerJson["data_form"])) {
-    case DataForm::ABSOLUTE: {
-      this->raw = Raw(data["raw"], this->toEnum(headerJson["data_form"]));
-      this->header = Header(headerJson);
-      break;
-    }
-    case DataForm::DIFFERENTIAL: {
-      this->raw = Raw(data["raw"], this->toEnum(headerJson["data_form"]));
-      this->header = Header(headerJson);
-      break;
-    }
-    default: {
-      break;
-    }
+Data::Data(Json::Value &data) {
+  Json::Value jsonDataForm = data["header"]["data_form"];
+  if (jsonDataForm.asString() == "ABSOLUTE") {
+    DataForm dataForm = DataForm::ABSOLUTE;
+    this->raw = Raw(data["raw"], dataForm);
+    this->header = Header(data["header"]);
+  }
+  if (jsonDataForm.asString() == "DIFFERENTIAL") {
+    DataForm dataForm = DataForm::DIFFERENTIAL;
+    this->raw = Raw(data["raw"], dataForm);
+    this->header = Header(data["header"]);
   }
 }
 
@@ -63,21 +58,18 @@ Data::Data() {
   this->header = Header();
 }
 
-Raw Data::getRaw() {
-  return this->raw;
-}
+Raw Data::getRaw() { return this->raw; }
 
-Header Data::getHeader() {
-  return this->header;
-}
+Header Data::getHeader() { return this->header; }
 
-bool Data::isEqual(Data& data) {
+bool Data::isEqual(Data &data) {
   return this->header.isEqual(data.header) && this->raw.isEqual(data.raw);
 }
 
-void Data::serialize(ProtobufData* protobufData) {
+void Data::serialize(ProtobufData *protobufData) {
   if (protobufData == nullptr) {
-    throw std::invalid_argument("Error in serialize: protobufData is a null pointer");
+    throw std::invalid_argument(
+        "Error in serialize: protobufData is a null pointer");
   }
   ProtobufHeader protobufHeader;
   this->header.serialize(&protobufHeader);
@@ -96,16 +88,7 @@ Json::Value Data::toJson(DataForm dataForm) {
   return json;
 }
 
-void Data::deserialize(const ProtobufData& protobufData) {
+void Data::deserialize(const ProtobufData &protobufData) {
   this->header = Header(protobufData.header());
   this->raw = Raw(protobufData.raw());
-}
-
-DataForm Data::toEnum(Json::Value string) {
-  if (string.asString() == "ABSOLUTE") {
-    return DataForm::ABSOLUTE;
-  }
-  if (string.asString() == "DIFFERENTIAL") {
-    return DataForm::DIFFERENTIAL;
-  }
 }

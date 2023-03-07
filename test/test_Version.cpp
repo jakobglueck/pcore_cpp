@@ -31,11 +31,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 */
 
-#include <gtest/gtest.h>
 #include "VersionExampleFactory.h"
+#include <gtest/gtest.h>
 
 class VersionTest : public ::testing::Test {
- protected:
+protected:
   Version normalVersion1 = VersionExampleFactory::normalVersion();
   Version normalVersion2 = VersionExampleFactory::normalVersion();
   Version startVersion1 = VersionExampleFactory::startVersion();
@@ -61,7 +61,8 @@ TEST_F(VersionTest, TestGetPatch) {
 TEST_F(VersionTest, TestGetAll) {
   EXPECT_EQ(this->randomVersion1.getMajor(), VersionExampleFactory::majorTwo());
   EXPECT_EQ(this->randomVersion1.getMinor(), VersionExampleFactory::minorOne());
-  EXPECT_EQ(this->randomVersion1.getPatch(), VersionExampleFactory::patchZero());
+  EXPECT_EQ(this->randomVersion1.getPatch(),
+            VersionExampleFactory::patchZero());
 }
 
 TEST_F(VersionTest, CompareEqualNormalVersion) {
@@ -120,13 +121,14 @@ TEST_F(VersionTest, CheckVersionPtr) {
   ProtobufVersion protobufData;
   this->normalVersion1.serialize(&protobufData);
   Version version = Version(protobufData);
-  ProtobufVersion* protobufDataPtr = &protobufData;
-  Version* ptr = &version;
+  ProtobufVersion *protobufDataPtr = &protobufData;
+  Version *ptr = &version;
   EXPECT_FALSE(ptr == nullptr);
   EXPECT_FALSE(protobufDataPtr == nullptr);
 }
 
 TEST_F(VersionTest, CheckVersionNullPtr) {
-  ProtobufVersion* protobufData = nullptr;
-  EXPECT_THROW(this->normalVersion1.serialize(protobufData), std::invalid_argument);
+  ProtobufVersion *protobufData = nullptr;
+  EXPECT_THROW(this->normalVersion1.serialize(protobufData),
+               std::invalid_argument);
 }

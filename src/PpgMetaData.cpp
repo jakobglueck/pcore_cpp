@@ -43,25 +43,32 @@ PpgMetaData::PpgMetaData(uint32_t wavelength_nm) {
   this->color = ProtobufColor::COLOR_NONE;
 }
 
-PpgMetaData::PpgMetaData(Json::Value& ppgMetaData) {
-  if (ppgMetaData["wavelength_nm"].asUInt() != 0 && ppgMetaData["color"].asString() != "") {
-    throw std::invalid_argument("just one enum type of PpgMetaData can be initialized");
+PpgMetaData::PpgMetaData(Json::Value &ppgMetaData) {
+  if (ppgMetaData["wavelength_nm"].asInt() != 0 &&
+      ppgMetaData["color"].asString() != "") {
+    throw std::invalid_argument(
+        "just one enum type of PpgMetaData can be initialized");
   }
-  if (ppgMetaData["wavelength_nm"].asUInt() != 0) {
-    if (ppgMetaData["wavelength_nm"].asUInt() < 0) {
-      throw std::invalid_argument("wavelength_nm  not allowed to be less than zero");
-    }
+  if (ppgMetaData["wavelength_nm"].asInt() != 0) {
     Json::Value wavelength = ppgMetaData["wavelength_nm"];
-    this->wavelength_nm = wavelength.asUInt();
+    this->wavelength_nm = wavelength.asInt();
     this->color = ProtobufColor::COLOR_NONE;
   }
   if (ppgMetaData["color"].asString() != "") {
-    this->color = this->toEnum(ppgMetaData["color"]);
+    if (ppgMetaData["color"].asString() == "COLOR_GREEN") {
+      this->color = ProtobufColor::COLOR_GREEN;
+    }
+    if (ppgMetaData["color"].asString() == "COLOR_RED") {
+      this->color = ProtobufColor::COLOR_RED;
+    }
+    if (ppgMetaData["color"].asString() == "COLOR_BLUE") {
+      this->color = ProtobufColor::COLOR_BLUE;
+    }
     this->wavelength_nm = 0;
   }
 }
 
-PpgMetaData::PpgMetaData(const ProtobufPpgMetaData& protobufPpgMetaData) {
+PpgMetaData::PpgMetaData(const ProtobufPpgMetaData &protobufPpgMetaData) {
   this->deserialize(protobufPpgMetaData);
 }
 
@@ -70,37 +77,45 @@ PpgMetaData::PpgMetaData() {
   this->wavelength_nm = 0;
 }
 
-ProtobufColor PpgMetaData::getColor() {
-  return this->color;
-}
+ProtobufColor PpgMetaData::getColor() { return this->color; }
 
-uint32_t PpgMetaData::getWavelength() {
-  return this->wavelength_nm;
-}
+uint32_t PpgMetaData::getWavelength() { return this->wavelength_nm; }
 
 bool PpgMetaData::isSet() {
-  return !(this->color == ProtobufColor::COLOR_NONE && this->wavelength_nm == 0);
+  return !(this->color == ProtobufColor::COLOR_NONE &&
+           this->wavelength_nm == 0);
 }
 
-bool PpgMetaData::isEqual(PpgMetaData& ppgMetaData) {
-  return this->color == ppgMetaData.color && this->wavelength_nm == ppgMetaData.wavelength_nm;
+bool PpgMetaData::isEqual(PpgMetaData &ppgMetaData) {
+  return this->color == ppgMetaData.color &&
+         this->wavelength_nm == ppgMetaData.wavelength_nm;
 }
 
 Json::Value PpgMetaData::toJson() {
   Json::Value ppgMetaData;
-  Json::Value wavelength_nm(this->wavelength_nm);
+  Json::Value wavelength_nm(Json::uintValue);
+  wavelength_nm = this->wavelength_nm;
   if (this->wavelength_nm != 0) {
     ppgMetaData["wavelength_nm"] = wavelength_nm;
   }
   if (this->color != ProtobufColor::COLOR_NONE) {
-    ppgMetaData["color"] = this->toString(this->color);
+    if (this->color == ProtobufColor::COLOR_RED) {
+      ppgMetaData["color"] = "COLOR_RED";
+    }
+    if (this->color == ProtobufColor::COLOR_BLUE) {
+      ppgMetaData["color"] = "COLOR_BLUE";
+    }
+    if (this->color == ProtobufColor::COLOR_GREEN) {
+      ppgMetaData["color"] = "COLOR_GREEN";
+    }
   }
   return ppgMetaData;
 }
 
-void PpgMetaData::serialize(ProtobufPpgMetaData* protobufPpgMetaData) {
+void PpgMetaData::serialize(ProtobufPpgMetaData *protobufPpgMetaData) {
   if (protobufPpgMetaData == nullptr) {
-    throw std::invalid_argument("Error in serialize: protobufPpgMetaData is a null pointer");
+    throw std::invalid_argument(
+        "Error in serialize: protobufPpgMetaData is a null pointer");
   }
   if (this->color != ProtobufColor::COLOR_NONE && this->wavelength_nm != 0) {
     throw std::invalid_argument("one parameter has to be initialized");
@@ -113,40 +128,7 @@ void PpgMetaData::serialize(ProtobufPpgMetaData* protobufPpgMetaData) {
   }
 }
 
-void PpgMetaData::deserialize(const ProtobufPpgMetaData& protobufPpgMetaData) {
+void PpgMetaData::deserialize(const ProtobufPpgMetaData &protobufPpgMetaData) {
   this->color = protobufPpgMetaData.color();
   this->wavelength_nm = protobufPpgMetaData.wavelength_nm();
-}
-
-std::string PpgMetaData::toString(ProtobufColor color) {
-  std::string jsonColor;
-  switch (color) {
-    case ProtobufColor::COLOR_RED: {
-      jsonColor = "COLOR_RED";
-    }
-    case ProtobufColor::COLOR_BLUE: {
-      jsonColor = "COLOR_BLUE";
-    }
-    case ProtobufColor::COLOR_GREEN: {
-      jsonColor = "COLOR_GREEN";
-    }
-    default: {
-      break;
-    }
-  }
-  return jsonColor;
-}
-
-ProtobufColor PpgMetaData::toEnum(Json::Value color) {
-  ProtobufColor protobufColor;
-  if (color.asString() == "COLOR_RED") {
-    protobufColor = ProtobufColor::COLOR_RED;
-  }
-  if (color.asString() == "COLOR_BLUE") {
-    protobufColor = ProtobufColor::COLOR_BLUE;
-  }
-  if (color.asString() == "COLOR_GREEN") {
-    protobufColor = ProtobufColor::COLOR_GREEN;
-  }
-  return protobufColor;
 }

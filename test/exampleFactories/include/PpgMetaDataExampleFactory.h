@@ -35,7 +35,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "PpgMetaData.h"
 
 class PpgMetaDataExampleFactory {
- public:
+public:
   static uint32_t normalWavelength_nm();
   static uint32_t comparableWavelength_nm();
   static uint32_t noWavelength_nm();

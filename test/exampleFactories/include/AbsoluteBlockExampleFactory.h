@@ -35,7 +35,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "AbsoluteBlock.h"
 
 class AbsoluteBlockExampleFactory {
- public:
+public:
   static std::vector<int32_t> absoluteValuesNormal();
   static std::vector<int32_t> absoluteValuesTwoElements();
   static std::vector<int32_t> absoluteValuesOneElement();

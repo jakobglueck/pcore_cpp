@@ -39,19 +39,19 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 using ProtobufRaw = com::preventicus::pcore::Raw;
 
 class Raw final {
- public:
+public:
   Raw(std::vector<Sensor> sensors);
-  Raw(const ProtobufRaw& protobufRaw);
-  Raw(Json::Value& raw, DataForm dataForm);
+  Raw(const ProtobufRaw &protobufRaw);
+  Raw(Json::Value &raw, DataForm dataForm);
   Raw();
 
   std::vector<Sensor> getSensors();
-  bool isEqual(Raw& protobufRaw);
+  bool isEqual(Raw &protobufRaw);
   Json::Value toJson(DataForm dataForm);
-  void serialize(ProtobufRaw* protobufRaw);
+  void serialize(ProtobufRaw *protobufRaw);
 
- private:
-  void deserialize(const ProtobufRaw& protobufRaw);
+private:
+  void deserialize(const ProtobufRaw &protobufRaw);
 
   std::vector<Sensor> sensors;
 };

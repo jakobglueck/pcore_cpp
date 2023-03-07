@@ -39,7 +39,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "PpgMetaDataExampleFactory.h"
 
 class ChannelExampleFactory {
- public:
+public:
   static Channel channelWithAccMetaDataWithCoordinateX();
   static Channel channelWithAccMetaDataWithCoordinateY();
   static Channel channelWithAccMetaDataWithNorm();

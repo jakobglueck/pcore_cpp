@@ -49,7 +49,6 @@ SET_TARGET_PROPERTIES(libpcore_extern PROPERTIES
     PUBLIC_HEADER "${CMAKE_SOURCE_DIR}/include/pcore_extern.h;${CMAKE_BINARY_DIR}/include/pcoreConfig.h"
 )
 
-
 INSTALL(TARGETS libpcore_extern
     RUNTIME DESTINATION pcore/bin
     LIBRARY DESTINATION pcore/lib

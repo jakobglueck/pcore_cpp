@@ -33,13 +33,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "PpgMetaDataExampleFactory.h"
 
-uint32_t PpgMetaDataExampleFactory::normalWavelength_nm() {
-  return 255;
-}
+uint32_t PpgMetaDataExampleFactory::normalWavelength_nm() { return 255; }
 
-uint32_t PpgMetaDataExampleFactory::comparableWavelength_nm() {
-  return 100;
-}
+uint32_t PpgMetaDataExampleFactory::comparableWavelength_nm() { return 100; }
 
 uint32_t PpgMetaDataExampleFactory::absoluteJsonDataWavelength_nm1() {
   return 450;
@@ -49,9 +45,7 @@ uint32_t PpgMetaDataExampleFactory::absoluteJsonDataWavelength_nm2() {
   return 660;
 }
 
-uint32_t PpgMetaDataExampleFactory::noWavelength_nm() {
-  return 0;
-}
+uint32_t PpgMetaDataExampleFactory::noWavelength_nm() { return 0; }
 
 PpgMetaData PpgMetaDataExampleFactory::ppgMetDataWithColorGreen() {
   return PpgMetaData(ProtobufColor::COLOR_GREEN);
@@ -74,11 +68,13 @@ PpgMetaData PpgMetaDataExampleFactory::ppgMetDataWithComparableWavelength() {
 }
 
 PpgMetaData PpgMetaDataExampleFactory::absoluteJsonDataPpg1() {
-  return PpgMetaData(PpgMetaDataExampleFactory::absoluteJsonDataWavelength_nm1());
+  return PpgMetaData(
+      PpgMetaDataExampleFactory::absoluteJsonDataWavelength_nm1());
 }
 
 PpgMetaData PpgMetaDataExampleFactory::absoluteJsonDataPpg2() {
-  return PpgMetaData(PpgMetaDataExampleFactory::absoluteJsonDataWavelength_nm2());
+  return PpgMetaData(
+      PpgMetaDataExampleFactory::absoluteJsonDataWavelength_nm2());
 }
 
 PpgMetaData PpgMetaDataExampleFactory::ppgMetaDataNotSet() {
