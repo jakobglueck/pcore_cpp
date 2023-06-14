@@ -64,7 +64,7 @@ int32_t Header::getTimeZoneOffset() { return this->timeZoneOffset_min; }
 Version Header::getVersion() { return this->version; }
 
 bool Header::isEqual(Header &header) {
-  return this->timeZoneOffset_min == header.timeZoneOffset_min;
+  return this->timeZoneOffset_min == header.timeZoneOffset_min && this->version.isEqual(header.version);
 }
 
 void Header::serialize(ProtobufHeader *protobufHeader) {

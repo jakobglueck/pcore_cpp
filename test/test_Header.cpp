@@ -85,7 +85,7 @@ TEST_F(HeaderTest, CompareDifferentTimeZoneOffset) {
       this->normalHeaderWithPositiveTimeZoneOffset_min1));
 }
 
-TEST_F(HeaderTest, CompareTimeZoneOffsetWith0) {
+TEST_F(HeaderTest, CompareTimeZoneOffsetWith) {
   EXPECT_FALSE(this->normalHeaderWithNoTimeZoneOffset_min1.isEqual(
       this->normalHeaderWithPositiveTimeZoneOffset_min1));
 }

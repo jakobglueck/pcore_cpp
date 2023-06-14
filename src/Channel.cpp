@@ -236,27 +236,27 @@ Json::Value Channel::toJson(DataForm dataForm,
     differentialBlocks.append(differentialBlock.toJson());
   }
   Json::Value absoluteBlocks(this->absoluteBlock.toJson());
-  Json::Value metData;
+  Json::Value metaData;
   if (protobufSensorType == ProtobufSensorType::SENSOR_TYPE_PPG) {
-    metData = this->ppgMetaData.toJson();
+    metaData = this->ppgMetaData.toJson();
     if (dataForm == DataForm::ABSOLUTE) {
-      channel["ppg_metadata"] = metData;
+      channel["ppg_metadata"] = metaData;
       channel["absolute_block"] = absoluteBlocks;
     }
 
     if (dataForm == DataForm::DIFFERENTIAL) {
-      channel["ppg_metadata"] = metData;
+      channel["ppg_metadata"] = metaData;
       channel["differential_blocks"] = differentialBlocks;
     }
   }
   if (protobufSensorType == ProtobufSensorType::SENSOR_TYPE_ACC) {
-    metData = this->accMetaData.toJson();
+    metaData = this->accMetaData.toJson();
     if (dataForm == DataForm::ABSOLUTE) {
-      channel["acc_metadata"] = metData;
+      channel["acc_metadata"] = metaData;
       channel["absolute_block"] = absoluteBlocks;
     }
     if (dataForm == DataForm::DIFFERENTIAL) {
-      channel["acc_metadata"] = metData;
+      channel["acc_metadata"] = metaData;
       channel["differential_blocks"] = differentialBlocks;
     }
   }

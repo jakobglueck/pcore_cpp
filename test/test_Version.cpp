@@ -103,14 +103,14 @@ TEST_F(VersionTest, TestSerializeAndDeserialize0Version) {
   EXPECT_TRUE(this->startVersion1.isEqual(version2));
 }
 
-TEST_F(VersionTest, TestSerializeAndDeserializerandomVersion) {
+TEST_F(VersionTest, TestSerializeAndDeserializeRandomVersion) {
   ProtobufVersion protobufVersion;
   this->randomVersion1.serialize(&protobufVersion);
   Version version2 = Version(protobufVersion);
   EXPECT_TRUE(this->randomVersion1.isEqual(version2));
 }
 
-TEST_F(VersionTest, TestSerializeAndDeserializehighVersion) {
+TEST_F(VersionTest, TestSerializeAndDeserializeHighVersion) {
   ProtobufVersion protobufVersion;
   this->highVersion1.serialize(&protobufVersion);
   Version version2 = Version(protobufVersion);
